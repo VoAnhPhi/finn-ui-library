@@ -51,7 +51,8 @@ export function Input({
   const theme = useTheme();
   const inputId = id;
   const errorId = error && inputId ? `${inputId}-error` : undefined;
-  const borderColor = error ? theme.colors.danger : theme.colors.border;
+  const invalid = Boolean(error || rest["aria-invalid"]);
+  const borderColor = invalid ? theme.colors.danger : theme.colors.border;
   const wrapperStyle: CSSProperties = {
     display: "flex",
     flexDirection: "column",
@@ -86,7 +87,7 @@ export function Input({
     ...style
   };
   const iconStyle: CSSProperties = {
-    color: error ? theme.colors.danger : theme.colors.muted,
+    color: invalid ? theme.colors.danger : theme.colors.muted,
     display: "inline-flex",
     paddingLeft: leftIcon ? theme.tokens.spacing.md : 0,
     paddingRight: rightIcon ? theme.tokens.spacing.md : 0
@@ -102,7 +103,7 @@ export function Input({
       createElement("input", {
         ...rest,
         "aria-describedby": [ariaDescribedBy, errorId].filter(Boolean).join(" ") || undefined,
-        "aria-invalid": error ? true : rest["aria-invalid"],
+        "aria-invalid": invalid ? true : rest["aria-invalid"],
         disabled,
         id: inputId,
         readOnly,

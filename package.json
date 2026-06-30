@@ -8,7 +8,12 @@
   "packageManager": "pnpm@11.7.0",
   "scripts": {
     "build": "pnpm --filter @finn-ui/* -r build",
+    "check:packages": "pnpm build && node scripts/check-package-exports.mjs",
+    "check:pack": "pnpm build && pnpm --filter @finn-ui/tokens pack --dry-run && pnpm --filter @finn-ui/theme pack --dry-run && pnpm --filter @finn-ui/react pack --dry-run",
     "typecheck": "pnpm -r typecheck",
+    "playground": "pnpm --filter playground-web dev",
+    "build:playground": "pnpm build && pnpm --filter playground-web build",
+    "release:check": "pnpm typecheck && pnpm check:packages && pnpm check:pack && pnpm build:playground && pnpm build:storybook",
     "storybook": "pnpm --filter storybook storybook",
     "build:storybook": "pnpm --filter storybook build"
   },

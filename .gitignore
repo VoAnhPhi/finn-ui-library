@@ -57,3 +57,7 @@ scripts/bin/harness-cli.exe
 # file
 AGENTS.md
 SPEC.md
+SPEC-2.md
+
+#agents
+.agents/

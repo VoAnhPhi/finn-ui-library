@@ -139,3 +139,28 @@ Phase 5 validates package consumption in a real React app.
 Phase 6 ports stable APIs to React Native.
 
 Phase 7 builds Theme Studio.
+
+## Current Phase 5 Proof
+
+`apps/playground-web` is the consume-test app for the MVP package API. It
+imports Finn UI through `@finn-ui/react` and `@finn-ui/theme`, renders the MVP
+components outside Storybook, and switches between light, dark, and custom
+themes through `UIProvider`.
+
+`docs/RELEASE.md` defines the current release readiness process. The MVP
+packages remain private, but `pnpm release:check` now verifies TypeScript,
+package ESM/CJS exports, npm pack dry-runs, playground consumption, and
+Storybook static output.
+
+## Current Phase 6 Web Expansion
+
+Phase 6 extends the Web React component set after the MVP foundation is proven.
+`Badge` adds compact status and metadata labels with theme-aware `variant`,
+`tone`, `size`, and `radius` props. `FormField` adds accessible label, helper,
+required, and error copy wiring for form controls. `Checkbox` and `Switch`
+add native binary controls for agreements and settings, with theme-aware
+tone, size, disabled, and controlled/uncontrolled usage. `Avatar` adds compact
+identity display with image and fallback states, theme-aware tone, size, and
+radius. `Skeleton` adds loading placeholders for cards, lists, and identity
+surfaces with theme-aware radius, dimensions, circle mode, and optional
+animation.

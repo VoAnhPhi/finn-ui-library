@@ -10,4 +10,4 @@ the work is selected or when a product decision needs a durable place to land.
 
 | Epic | Description | Status |
 | --- | --- | --- |
-| TBD | Add candidate epics after spec intake | unsliced |
+| E07 Sprint 2 standardization | Component standardization, CSS-variable theme runtime, Storybook cleanup, and demo app from `SPEC-2.md`. See `docs/stories/epics/E07-sprint-2-standardization/overview.md`. | planned |

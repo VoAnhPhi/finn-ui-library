@@ -3,6 +3,22 @@
   "version": "0.0.0",
   "private": true,
   "description": "Design token foundation for Finn UI.",
+  "license": "UNLICENSED",
+  "homepage": "https://storybook-static-eta-ten.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VoAnhPhi/finn-ui-library.git",
+    "directory": "packages/tokens"
+  },
+  "bugs": {
+    "url": "https://github.com/VoAnhPhi/finn-ui-library/issues"
+  },
+  "keywords": [
+    "design-tokens",
+    "ui-library",
+    "theme",
+    "typescript"
+  ],
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

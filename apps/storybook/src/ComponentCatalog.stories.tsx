@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Button, Card, Divider, Input, Stack, Text, UIProvider } from "@finn-ui/react";
+import { Avatar, Badge, Box, Button, Card, Checkbox, Divider, FormField, Input, Skeleton, Stack, Switch, Text, UIProvider } from "@finn-ui/react";
 import { lightTheme } from "@finn-ui/theme";
 
 const meta = {
@@ -43,12 +43,27 @@ export const MvpCatalog: Story = {
                 <Button>Solid button</Button>
                 <Button variant="outline">Outline button</Button>
                 <Button variant="soft" tone="danger">Soft danger</Button>
+                <Avatar fallback="FU" tone="primary" />
+                <Badge tone="success">Ready</Badge>
+                <Badge variant="outline" tone="warning">Beta</Badge>
+              </Stack>
+              <Stack gap="sm">
+                <Skeleton width="60%" height={16} />
+                <Skeleton width="42%" height={16} />
               </Stack>
               <Divider />
               <Text variant="title">Forms and surfaces</Text>
               <Stack gap="md">
-                <Input placeholder="Email" />
-                <Input placeholder="With error" error="This field is required" />
+                <FormField id="catalog-email" label="Email" helperText="Connected label and helper text.">
+                  <Input placeholder="Email" />
+                </FormField>
+                <FormField id="catalog-error" label="Required field" error="This field is required.">
+                  <Input placeholder="With error" />
+                </FormField>
+                <Stack direction="row" gap="lg" wrap="wrap">
+                  <Checkbox defaultChecked label="Checkbox" />
+                  <Switch defaultChecked label="Switch" />
+                </Stack>
               </Stack>
             </Stack>
           </Card>

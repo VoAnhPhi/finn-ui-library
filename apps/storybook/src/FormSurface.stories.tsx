@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Button, Card, Divider, Input, Stack, Text, UIProvider } from "@finn-ui/react";
+import { Box, Button, Card, Checkbox, Divider, FormField, Input, Stack, Switch, Text, UIProvider } from "@finn-ui/react";
 import { createTheme, darkTheme, lightTheme } from "@finn-ui/theme";
 
 const customTheme = createTheme({
@@ -48,10 +48,20 @@ function FormSurfaceDemo() {
           </Stack>
           <Divider />
           <Stack gap="md">
-            <Input id="email" placeholder="Email" leftIcon={<IconDot />} defaultValue="hello@finn-ui.dev" />
-            <Input placeholder="Display name" rightIcon={<IconDot />} />
-            <Input placeholder="Password" type="password" error="Password is required" />
-            <Input placeholder="Disabled" disabled />
+            <FormField id="email" label="Email" helperText="Use your primary workspace email." required>
+              <Input placeholder="Email" leftIcon={<IconDot />} defaultValue="hello@finn-ui.dev" />
+            </FormField>
+            <FormField id="display-name" label="Display name">
+              <Input placeholder="Display name" rightIcon={<IconDot />} />
+            </FormField>
+            <FormField id="password" label="Password" error="Password is required." required>
+              <Input placeholder="Password" type="password" />
+            </FormField>
+            <FormField id="disabled-field" label="Disabled">
+              <Input placeholder="Disabled" disabled />
+            </FormField>
+            <Checkbox tone="success" defaultChecked label="Send account updates" />
+            <Switch tone="primary" defaultChecked label="Enable workspace alerts" />
           </Stack>
           <Stack direction="row" gap="md" align="center">
             <Button>Save</Button>

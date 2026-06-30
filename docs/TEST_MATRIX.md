@@ -27,6 +27,15 @@ implemented until tests or validation evidence exist.
 | P3-003 | Implement React Input, Card, and Divider components | yes | yes | no | yes | implemented | `pnpm typecheck`, `pnpm build`, `pnpm build:storybook`, Storybook HTTP 200 |
 | P4-001 | Polish Storybook docs, theme comparison, and MVP component catalog | yes | yes | no | yes | implemented | `pnpm typecheck`, `pnpm build`, `pnpm build:storybook`, Storybook HTTP 200 |
 | P4-002 | Deploy Storybook static output online | yes | yes | no | yes | implemented | `https://storybook-static-eta-ten.vercel.app`, Vercel status `Ready` |
+| P5-001 | Consume Finn UI packages in a Vite React playground app | yes | yes | no | yes | implemented | `pnpm typecheck`, `pnpm build`, `pnpm build:playground` |
+| P5-002 | Verify package readiness and release checklist | yes | yes | no | yes | implemented | `pnpm check:packages`, `pnpm release:check` |
+| P5-003 | Add package metadata and npm pack dry-runs | yes | yes | no | yes | implemented | `pnpm check:pack`, `pnpm release:check` |
+| P6-001 | Add React Badge component | yes | yes | no | yes | implemented | `pnpm release:check`, Storybook Badge stories |
+| P6-002 | Add React FormField component | yes | yes | no | yes | implemented | `pnpm release:check`, Storybook FormField stories, Browser QA |
+| P6-003 | Add React Checkbox and Switch components | yes | yes | no | yes | implemented | `pnpm release:check`, Storybook Selection Controls stories, Browser QA |
+| P6-004 | Add React Avatar component | yes | yes | no | yes | implemented | `pnpm release:check`, Storybook Avatar stories, Browser QA |
+| P6-005 | Add React Skeleton component | yes | yes | no | yes | implemented | `pnpm release:check`, Storybook Skeleton stories, Browser QA |
+| S2-INIT | Plan Sprint 2 component standardization, theme runtime, Storybook cleanup, and demo app initiative | no | no | no | no | planned | `docs/stories/epics/E07-sprint-2-standardization/overview.md`, `SPEC-2.md` |
 
 ## Evidence Rules
 
