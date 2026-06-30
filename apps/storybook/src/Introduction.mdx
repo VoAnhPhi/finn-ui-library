@@ -1,0 +1,49 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Docs/Introduction" />
+
+# Finn UI
+
+Finn UI is a theme-first React UI library for personal projects and small teams.
+The MVP proves a consuming app can import `@finn-ui/react`, wrap the app with
+`UIProvider`, use the core Web components, and update visual styling from one
+theme object.
+
+## MVP Packages
+
+- `@finn-ui/tokens`: shared design token scales.
+- `@finn-ui/theme`: `createTheme`, `lightTheme`, `darkTheme`, and theme types.
+- `@finn-ui/react`: `UIProvider`, `useTheme`, and Web components.
+
+## Component Set
+
+- Layout and text: `Box`, `Text`, `Stack`
+- Action: `Button`
+- Form and surfaces: `Input`, `Card`, `Divider`
+
+## Customization Model
+
+1. Theme is the primary customization layer.
+2. Props are the secondary customization layer.
+3. `style` and `className` are escape hatches.
+
+## Build And Deploy
+
+Build Storybook with:
+
+```bash
+pnpm build:storybook
+```
+
+The static output is written to:
+
+```text
+apps/storybook/storybook-static
+```
+
+For Vercel, use:
+
+- Root Directory: `apps/storybook`
+- Build Command: `pnpm build`
+- Output Directory: `storybook-static`
+- Install Command: `pnpm install`

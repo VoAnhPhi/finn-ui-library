@@ -1,0 +1,21 @@
+{
+  "name": "finn-ui-library",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Theme-first UI library monorepo for Finn UI.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "packageManager": "pnpm@11.7.0",
+  "scripts": {
+    "build": "pnpm --filter @finn-ui/* -r build",
+    "typecheck": "pnpm -r typecheck",
+    "storybook": "pnpm --filter storybook storybook",
+    "build:storybook": "pnpm --filter storybook build"
+  },
+  "devDependencies": {
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "tsup": "latest",
+    "typescript": "latest"
+  }
+}

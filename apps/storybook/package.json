@@ -1,0 +1,28 @@
+{
+  "name": "storybook",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Storybook app for Finn UI component previews and docs.",
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build": "storybook build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@finn-ui/react": "workspace:*",
+    "@finn-ui/theme": "workspace:*",
+    "@finn-ui/tokens": "workspace:*",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "latest",
+    "@storybook/react-vite": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "storybook": "latest",
+    "typescript": "latest",
+    "vite": "latest"
+  }
+}

@@ -1,12 +1,59 @@
-# Harness durable layer — each project instance generates its own data.
+# Harness durable local state
 harness.db
 harness.db-wal
 harness.db-shm
 
-# Rust build output for harness tooling.
-target/
-dist/
+# Codebase knowledge graph cache
+.codebase-memory/
 
-# Downloaded Harness CLI binary for installed project instances.
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Package and app build output
+dist/
+**/dist/
+apps/storybook/storybook-static/
+
+# TypeScript incremental build state
+*.tsbuildinfo
+
+# Test and coverage output
+coverage/
+**/coverage/
+.nyc_output/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Framework and deployment caches
+.vercel/
+.vite/
+**/.vite/
+.turbo/
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Rust build output for harness tooling
+target/
+
+# Downloaded Harness CLI binary for installed project instances
 scripts/bin/harness-cli
 scripts/bin/harness-cli.exe
+
+# file
+AGENTS.md
+SPEC.md
