@@ -18,7 +18,7 @@ const customTheme = createTheme({
 });
 
 const meta = {
-  title: "Primitives/Overview",
+  title: "Components/Primitives",
   tags: ["autodocs"],
   parameters: {
     layout: "centered"

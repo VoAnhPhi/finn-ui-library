@@ -21,7 +21,7 @@ const customTheme = createTheme({
 });
 
 const meta = {
-  title: "Foundation/Phase 2",
+  title: "Foundation/Theme System",
   tags: ["autodocs"],
   parameters: {
     layout: "centered"
@@ -55,8 +55,8 @@ function ThemePreview() {
         Finn UI theme foundation
       </h1>
       <p style={{ color: theme.colors.muted, lineHeight: tokens.typography.lineHeight.normal }}>
-        Phase 2 exposes shared tokens, createTheme, light/dark themes, UIProvider,
-        and useTheme before component primitives arrive in Phase 3.
+        Theme values flow through shared tokens, createTheme, light/dark themes,
+        UIProvider, and useTheme.
       </p>
       <button
         type="button"

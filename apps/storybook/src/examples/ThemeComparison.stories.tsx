@@ -31,7 +31,7 @@ const customTheme = createTheme({
 const themes = [lightTheme, darkTheme, customTheme];
 
 const meta = {
-  title: "Themes/Comparison",
+  title: "Examples/Theme Comparison",
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen"
