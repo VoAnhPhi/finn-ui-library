@@ -1,9 +1,12 @@
 # Test Matrix
 
-This file maps product behavior to proof.
+This file maps product behavior to proof. The durable source of truth is the
+Harness database, queried with `scripts/bin/harness-cli.exe query matrix` on
+Windows. Keep this markdown snapshot aligned when documentation changes make a
+human-readable matrix useful.
 
-No product behavior has been defined or implemented yet. Do not mark a row
-implemented until tests or validation evidence exist.
+Do not mark a row implemented until validation evidence exists in the story
+packet, durable matrix row, or both.
 
 ## Status Values
 

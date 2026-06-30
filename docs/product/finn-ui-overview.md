@@ -6,6 +6,10 @@ This product contract is derived from `SPEC.md`. Treat this file and the story
 packets as the living planning surface for implementation work. `SPEC.md`
 remains the original input spec.
 
+If `SPEC.md` conflicts with this product contract or the durable Harness story
+matrix, prefer the product contract and matrix. Record a decision when the
+active roadmap meaningfully diverges from the original spec.
+
 ## Product Vision
 
 Finn UI is a reusable UI library for personal projects and small teams. It
@@ -136,9 +140,16 @@ Phase 4 builds Storybook and deployable docs.
 
 Phase 5 validates package consumption in a real React app.
 
-Phase 6 ports stable APIs to React Native.
+The original `SPEC.md` named Phase 6 as the React Native package. During the
+active MVP closeout, Phase 6 was used for Web React component expansion after
+the consume-test milestone. That Web expansion is the implemented Phase 6 in
+the current story matrix.
 
-Phase 7 builds Theme Studio.
+React Native remains deferred until the Web API, theme runtime, and Sprint 2
+standardization work are stable. Treat Native as a later explicit initiative,
+not the next default Sprint 2 target.
+
+Phase 7, from the original spec, remains the future Theme Studio direction.
 
 ## Current Phase 5 Proof
 
@@ -164,3 +175,15 @@ identity display with image and fallback states, theme-aware tone, size, and
 radius. `Skeleton` adds loading placeholders for cards, lists, and identity
 surfaces with theme-aware radius, dimensions, circle mode, and optional
 animation.
+
+## Sprint 2 Direction
+
+Sprint 2 moves the library from "components render and build" to "components
+are reliable enough to use in a real personal React project." The initiative is
+tracked in
+`docs/stories/epics/E07-sprint-2-standardization/overview.md`.
+
+The main Sprint 2 targets are component standardization, CSS-variable theme
+runtime, Storybook cleanup, rendered theme-switching proof, and a real usage
+demo. Sprint 2 should not expand into React Native, Theme Studio, npm
+publishing, or complex new components unless the scope is explicitly changed.

@@ -1,14 +1,18 @@
 # Product Docs
 
-This directory is intentionally generic and mostly empty in Harness v0.
+This directory contains the living product contract for Finn UI.
 
-When a user provides a project spec, derive smaller product contract files here
-instead of keeping one large spec as the living plan. Name files by the product
-domains that actually exist in that spec, for example `overview.md`,
-`billing.md`, `workflows.md`, `permissions.md`, or `api-conventions.md`.
+`SPEC.md` and later sprint specs are input material. After intake, accepted
+scope should be reflected here, in story packets, and in the durable Harness
+matrix instead of relying on the original spec as the active plan.
 
-Do not create domain files before the spec just to fill the folder. Empty
-structure is healthier than fake product truth.
+Current product contract:
+
+- `finn-ui-overview.md` covers the theme-first library vision, MVP scope,
+  implemented phases, deferred scope, and current Sprint 2 direction.
+
+Add new product docs only when a selected story needs a more focused contract
+surface.
 
 ## Update Rule
 

@@ -3,7 +3,18 @@
 Stories are work packets. They turn product intent into bounded implementation
 and validation work.
 
-No story packets are active yet.
+Current story status lives in the durable Harness matrix:
+
+```powershell
+.\scripts\bin\harness-cli.exe query matrix
+```
+
+Implemented story packets cover the Finn UI MVP foundation through the Phase 6
+Web component expansion. Sprint 2 planning is tracked under:
+
+```text
+docs/stories/epics/E07-sprint-2-standardization/overview.md
+```
 
 ## Normal Story
 
