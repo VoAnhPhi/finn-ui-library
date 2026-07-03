@@ -1,24 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Button, Card, Checkbox, FormField, Stack, Switch, Text, UIProvider } from "@finn-ui/react";
-import { createTheme, darkTheme, lightTheme } from "@finn-ui/theme";
-
-const customTheme = createTheme({
-  name: "selection custom",
-  colors: {
-    primary: "#0F766E",
-    card: "#ECFDF5",
-    border: "#99F6E4",
-    danger: "#BE123C",
-    success: "#15803D",
-    warning: "#B45309"
-  },
-  components: {
-    Card: {
-      radius: "xl",
-      shadow: "md"
-    }
-  }
-});
+import { Box, Button, Card, Checkbox, FormField, Stack, Switch, Text } from "@finn-ui/react";
 
 const meta = {
   title: "Components/Selection Controls",
@@ -68,22 +49,20 @@ function SelectionControlsDemo() {
   );
 }
 
-function renderWithTheme(theme = lightTheme) {
-  return (
-    <UIProvider theme={theme}>
-      <SelectionControlsDemo />
-    </UIProvider>
-  );
-}
-
 export const Light: Story = {
-  render: () => renderWithTheme(lightTheme)
+  render: () => <SelectionControlsDemo />
 };
 
 export const Dark: Story = {
-  render: () => renderWithTheme(darkTheme)
+  parameters: {
+    finnTheme: "dark"
+  },
+  render: () => <SelectionControlsDemo />
 };
 
 export const Custom: Story = {
-  render: () => renderWithTheme(customTheme)
+  parameters: {
+    finnTheme: "custom"
+  },
+  render: () => <SelectionControlsDemo />
 };

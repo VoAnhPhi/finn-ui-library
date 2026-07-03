@@ -1,21 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Stack, Text, UIProvider } from "@finn-ui/react";
-import { createTheme, darkTheme, lightTheme } from "@finn-ui/theme";
-
-const customTheme = createTheme({
-  name: "custom green",
-  colors: {
-    primary: "#0F766E",
-    card: "#ECFDF5",
-    border: "#99F6E4"
-  },
-  components: {
-    Card: {
-      radius: "xl",
-      shadow: "md"
-    }
-  }
-});
+import { Box, Divider, Stack, Text } from "@finn-ui/react";
 
 const meta = {
   title: "Components/Primitives",
@@ -75,22 +59,61 @@ function PrimitiveDemo() {
   );
 }
 
-function renderWithTheme(theme = lightTheme) {
+function PrimitiveRecipeDemo() {
   return (
-    <UIProvider theme={theme}>
-      <PrimitiveDemo />
-    </UIProvider>
+    <Box bg="card" color="foreground" data-testid="primitive-recipe-box" p="2xl" radius="xl" shadow="sm">
+      <Stack data-testid="primitive-recipe-stack" gap="lg">
+        <Stack gap="xs">
+          <Text data-testid="primitive-recipe-heading" variant="heading">
+            Primitive recipes
+          </Text>
+          <Text color="muted">
+            Box, Text, Stack, and Divider expose stable data attributes and inherit Finn CSS variables.
+          </Text>
+        </Stack>
+        <Divider data-testid="primitive-recipe-divider" />
+        <Stack direction="row" gap="md" wrap="wrap">
+          <Box bg="background" borderColor="border" borderWidth="thin" p="lg" radius="lg">
+            <Stack gap="xs">
+              <Text variant="label" tone="primary">Box surface</Text>
+              <Text variant="caption" color="muted">Spacing, radius, border, color, and shadow variables.</Text>
+            </Stack>
+          </Box>
+          <Box bg="background" borderColor="border" borderWidth="thin" p="lg" radius="lg">
+            <Stack gap="xs">
+              <Text variant="label" tone="success">Stack layout</Text>
+              <Text variant="caption" color="muted">Direction, gap, wrap, alignment, and justification variables.</Text>
+            </Stack>
+          </Box>
+          <Stack direction="row" gap="sm" align="center">
+            <Text variant="caption" color="muted">Vertical</Text>
+            <Divider orientation="vertical" spacing="xs" />
+            <Text variant="caption" color="muted">Divider</Text>
+          </Stack>
+        </Stack>
+      </Stack>
+    </Box>
   );
 }
 
 export const Light: Story = {
-  render: () => renderWithTheme(lightTheme)
+  render: () => <PrimitiveDemo />
 };
 
 export const Dark: Story = {
-  render: () => renderWithTheme(darkTheme)
+  parameters: {
+    finnTheme: "dark"
+  },
+  render: () => <PrimitiveDemo />
 };
 
 export const Custom: Story = {
-  render: () => renderWithTheme(customTheme)
+  parameters: {
+    finnTheme: "custom"
+  },
+  render: () => <PrimitiveDemo />
+};
+
+export const Recipes: Story = {
+  render: () => <PrimitiveRecipeDemo />
 };

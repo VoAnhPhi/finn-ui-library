@@ -18,10 +18,10 @@ stop at "done" without the next concrete move.
 ## Output Shape
 
 ```text
-Next task: S2-005 Storybook controls/actions/theme switcher
+Next task: S2-006 Demo landing app
 
 Suggested prompt:
-@architect @UI @UX @frontend làm S2-005 Storybook controls/actions/theme switcher, tiếp tục ghi UIUX workflow log
+@architect @UI @UX @frontend lam S2-006 Demo landing app, tiep tuc ghi UIUX workflow log va de xuat next task
 ```
 
 ## Current Sprint 2 Order
@@ -32,9 +32,9 @@ Completed:
 - `S2-002` Theme CSS variable runtime
 - `S2-003` Button/Input/Card recipes
 - `S2-004` Primitive standardization
+- `S2-005` Storybook controls/actions/theme switcher
 
 Next:
 
-- `S2-005` Storybook controls/actions/theme switcher
 - `S2-006` Demo landing app
 - `S2-007` Validation and release readiness

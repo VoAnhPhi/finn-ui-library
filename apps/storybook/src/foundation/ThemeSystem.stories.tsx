@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { tokens } from "@finn-ui/tokens";
 import { createTheme, createThemeCssVariables, darkTheme, lightTheme } from "@finn-ui/theme";
-import { UIProvider, useTheme } from "@finn-ui/react";
+import { Badge, Button, Card, Stack, Text, UIProvider, useTheme } from "@finn-ui/react";
 
 const customTheme = createTheme({
   name: "custom violet",
@@ -84,6 +84,31 @@ function renderTheme(theme = lightTheme) {
   );
 }
 
+function ToolbarThemePreview() {
+  const theme = useTheme();
+
+  return (
+    <Card data-testid="toolbar-theme-card" variant="elevated" style={{ width: 420, maxWidth: "100%" }}>
+      <Stack gap="lg">
+        <Stack gap="xs">
+          <Text color="muted" data-testid="toolbar-theme-name" variant="caption">
+            {theme.name}
+          </Text>
+          <Text variant="heading">Toolbar theme switcher</Text>
+          <Text color="muted">
+            This story uses the global Storybook toolbar and provider decorator.
+          </Text>
+        </Stack>
+        <Stack direction="row" gap="sm" wrap="wrap">
+          <Badge tone="success">Global decorator</Badge>
+          <Badge tone="primary" variant="outline">CSS variables</Badge>
+        </Stack>
+        <Button data-testid="toolbar-theme-button">Themed action</Button>
+      </Stack>
+    </Card>
+  );
+}
+
 const variablePreviewNames = [
   "--finn-color-background",
   "--finn-color-card",
@@ -161,4 +186,8 @@ export const CustomTheme: Story = {
 
 export const CssVariableRuntime: Story = {
   render: () => <CssVariablePreview />
+};
+
+export const ToolbarTheme: Story = {
+  render: () => <ToolbarThemePreview />
 };

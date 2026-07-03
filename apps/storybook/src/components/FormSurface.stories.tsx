@@ -1,29 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Button, Card, Checkbox, Divider, FormField, Input, Stack, Switch, Text, UIProvider } from "@finn-ui/react";
-import { createTheme, darkTheme, lightTheme } from "@finn-ui/theme";
-
-const customTheme = createTheme({
-  name: "form custom",
-  colors: {
-    primary: "#0F766E",
-    card: "#ECFDF5",
-    border: "#99F6E4",
-    danger: "#BE123C"
-  },
-  components: {
-    Input: {
-      radius: "lg"
-    },
-    Card: {
-      radius: "xl",
-      shadow: "md"
-    }
-  }
-});
+import { Box, Button, Card, Checkbox, Divider, FormField, Input, Stack, Switch, Text } from "@finn-ui/react";
 
 const meta = {
   title: "Components/Form Surface",
   tags: ["autodocs"],
+  argTypes: {
+    onClick: { action: "form action" }
+  },
   parameters: {
     layout: "centered"
   }
@@ -77,22 +60,73 @@ function FormSurfaceDemo() {
   );
 }
 
-function renderWithTheme(theme = lightTheme) {
+function RecipeSurfaceDemo() {
   return (
-    <UIProvider theme={theme}>
-      <FormSurfaceDemo />
-    </UIProvider>
+    <Box bg="background" color="foreground" radius="xl">
+      <div style={{ padding: "var(--finn-spacing-xl)" }}>
+        <Stack gap="lg">
+          <Stack gap="xs">
+            <Text variant="heading">Input and Card recipes</Text>
+            <Text color="muted">Recipe states are driven by data attributes and inherited Finn CSS variables.</Text>
+          </Stack>
+          <Stack direction="row" gap="md" wrap="wrap">
+            <Card variant="outline" style={{ width: 220 }}>
+              <Stack gap="xs">
+                <Text variant="label">Outline</Text>
+                <Text variant="caption" color="muted">Soft border surface.</Text>
+              </Stack>
+            </Card>
+            <Card variant="solid" style={{ width: 220 }}>
+              <Stack gap="xs">
+                <Text variant="label">Solid</Text>
+                <Text variant="caption" color="muted">Filled theme surface.</Text>
+              </Stack>
+            </Card>
+            <Card variant="elevated" style={{ width: 220 }}>
+              <Stack gap="xs">
+                <Text variant="label">Elevated</Text>
+                <Text variant="caption" color="muted">Shadow as hierarchy.</Text>
+              </Stack>
+            </Card>
+            <Card variant="ghost" style={{ width: 220 }}>
+              <Stack gap="xs">
+                <Text variant="label">Ghost</Text>
+                <Text variant="caption" color="muted">No framed surface.</Text>
+              </Stack>
+            </Card>
+          </Stack>
+          <Card variant="elevated" style={{ width: 520, maxWidth: "100%" }}>
+            <Stack gap="md">
+              <Input data-testid="input-recipe-default" placeholder="Default input" defaultValue="hello@finn-ui.dev" leftIcon={<IconDot />} />
+              <Input data-testid="input-recipe-readonly" placeholder="Read only input" defaultValue="Read-only value" readOnly />
+              <Input data-testid="input-recipe-error" placeholder="Invalid input" error="Use a valid workspace email." />
+              <Input data-testid="input-recipe-disabled" placeholder="Disabled input" disabled />
+            </Stack>
+          </Card>
+        </Stack>
+      </div>
+    </Box>
   );
 }
 
 export const Light: Story = {
-  render: () => renderWithTheme(lightTheme)
+  render: () => <FormSurfaceDemo />
 };
 
 export const Dark: Story = {
-  render: () => renderWithTheme(darkTheme)
+  parameters: {
+    finnTheme: "dark"
+  },
+  render: () => <FormSurfaceDemo />
 };
 
 export const Custom: Story = {
-  render: () => renderWithTheme(customTheme)
+  parameters: {
+    finnTheme: "custom"
+  },
+  render: () => <FormSurfaceDemo />
+};
+
+export const Recipes: Story = {
+  render: () => <RecipeSurfaceDemo />
 };

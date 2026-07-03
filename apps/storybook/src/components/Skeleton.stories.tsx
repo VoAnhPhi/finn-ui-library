@@ -1,20 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Avatar, Box, Card, Skeleton, Stack, Text, UIProvider } from "@finn-ui/react";
-import { createTheme, darkTheme, lightTheme } from "@finn-ui/theme";
-
-const customTheme = createTheme({
-  name: "skeleton custom",
-  colors: {
-    card: "#ECFDF5",
-    border: "#99F6E4"
-  },
-  components: {
-    Card: {
-      radius: "xl",
-      shadow: "md"
-    }
-  }
-});
+import { Avatar, Box, Card, Skeleton, Stack, Text } from "@finn-ui/react";
 
 const meta = {
   title: "Components/Skeleton",
@@ -65,24 +50,22 @@ function SkeletonDemo() {
   );
 }
 
-function renderWithTheme(theme = lightTheme) {
-  return (
-    <UIProvider theme={theme}>
-      <SkeletonDemo />
-    </UIProvider>
-  );
-}
-
 export const Light: Story = {
-  render: () => renderWithTheme(lightTheme)
+  render: () => <SkeletonDemo />
 };
 
 export const Dark: Story = {
-  render: () => renderWithTheme(darkTheme)
+  parameters: {
+    finnTheme: "dark"
+  },
+  render: () => <SkeletonDemo />
 };
 
 export const Custom: Story = {
-  render: () => renderWithTheme(customTheme)
+  parameters: {
+    finnTheme: "custom"
+  },
+  render: () => <SkeletonDemo />
 };
 
 export const Playground: Story = {
