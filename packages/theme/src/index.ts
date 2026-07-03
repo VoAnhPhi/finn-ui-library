@@ -49,6 +49,31 @@ export type ThemeInput = {
   }>;
 };
 
+export type ThemeCssVariables = Record<string, string>;
+
+function toCssName(value: string) {
+  return value.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+}
+
+function toCssLength(value: number | string) {
+  return typeof value === "number" ? `${value}px` : value;
+}
+
+function setVariables(
+  variables: ThemeCssVariables,
+  prefix: string,
+  values: Record<string, number | string>,
+  formatValue: (value: number | string) => string = toCssLength
+) {
+  for (const [name, value] of Object.entries(values)) {
+    variables[`--finn-${prefix}-${toCssName(name)}`] = formatValue(value);
+  }
+}
+
+function toCssValue(value: number | string) {
+  return String(value);
+}
+
 const defaultComponents: ThemeComponents = {
   Button: {
     radius: "lg",
@@ -70,9 +95,9 @@ const defaultComponents: ThemeComponents = {
 const baseColors: ThemeColors = {
   background: tokens.colors.white,
   foreground: tokens.colors.black,
-  card: tokens.colors.gray50,
+  card: tokens.colors.white,
   cardForeground: tokens.colors.black,
-  border: tokens.colors.gray200,
+  border: "#E8ECF2",
   primary: tokens.colors.blue600,
   primaryForeground: tokens.colors.white,
   neutral: tokens.colors.gray700,
@@ -112,6 +137,47 @@ export function createTheme(input: ThemeInput = {}): Theme {
   };
 }
 
+export function createThemeCssVariables(theme: Theme): ThemeCssVariables {
+  const variables: ThemeCssVariables = {
+    "--finn-theme-name": theme.name
+  };
+
+  setVariables(variables, "color", theme.colors);
+  setVariables(variables, "token-color", theme.tokens.colors);
+  setVariables(variables, "spacing", theme.tokens.spacing);
+  setVariables(variables, "radius", theme.tokens.radius);
+  setVariables(variables, "border-width", theme.tokens.borderWidth);
+  setVariables(variables, "shadow", theme.tokens.shadow);
+  setVariables(variables, "opacity", theme.tokens.opacity, toCssValue);
+  setVariables(variables, "z-index", theme.tokens.zIndex, toCssValue);
+  setVariables(variables, "duration", theme.tokens.duration);
+  setVariables(variables, "easing", theme.tokens.easing);
+  setVariables(variables, "font-family", theme.tokens.typography.fontFamily);
+  setVariables(variables, "font-size", theme.tokens.typography.fontSize);
+  setVariables(variables, "font-weight", theme.tokens.typography.fontWeight, toCssValue);
+  setVariables(variables, "line-height", theme.tokens.typography.lineHeight, toCssValue);
+
+  for (const [componentName, component] of Object.entries(theme.components)) {
+    const prefix = `component-${toCssName(componentName)}`;
+
+    if (component.radius != null) {
+      variables[`--finn-${prefix}-radius`] = `var(--finn-radius-${component.radius}, ${toCssLength(theme.tokens.radius[component.radius])})`;
+    }
+
+    if (component.borderWidth != null) {
+      variables[`--finn-${prefix}-border-width`] =
+        `var(--finn-border-width-${component.borderWidth}, ${toCssLength(theme.tokens.borderWidth[component.borderWidth])})`;
+    }
+
+    if (component.shadow != null) {
+      variables[`--finn-${prefix}-shadow`] =
+        `var(--finn-shadow-${component.shadow}, ${theme.tokens.shadow[component.shadow]})`;
+    }
+  }
+
+  return variables;
+}
+
 export const lightTheme = createTheme({
   name: "light"
 });
@@ -123,7 +189,7 @@ export const darkTheme = createTheme({
     foreground: "#F9FAFB",
     card: "#111827",
     cardForeground: "#F9FAFB",
-    border: "#253044",
+    border: "#334155",
     primary: "#60A5FA",
     primaryForeground: "#0B1120",
     neutral: "#E5E7EB",
