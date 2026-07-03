@@ -1,27 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Avatar, Badge, Box, Card, Stack, Text, UIProvider } from "@finn-ui/react";
-import { createTheme, darkTheme, lightTheme } from "@finn-ui/theme";
-
-const customTheme = createTheme({
-  name: "avatar custom",
-  colors: {
-    primary: "#0F766E",
-    primaryForeground: "#FFFFFF",
-    neutral: "#E8F2ED",
-    neutralForeground: "#14211B",
-    danger: "#BE123C",
-    success: "#15803D",
-    warning: "#B45309",
-    card: "#ECFDF5",
-    border: "#99F6E4"
-  },
-  components: {
-    Card: {
-      radius: "xl",
-      shadow: "md"
-    }
-  }
-});
+import { Avatar, Badge, Box, Card, Stack, Text } from "@finn-ui/react";
 
 const meta = {
   title: "Components/Avatar",
@@ -79,24 +57,22 @@ function AvatarDemo() {
   );
 }
 
-function renderWithTheme(theme = lightTheme) {
-  return (
-    <UIProvider theme={theme}>
-      <AvatarDemo />
-    </UIProvider>
-  );
-}
-
 export const Light: Story = {
-  render: () => renderWithTheme(lightTheme)
+  render: () => <AvatarDemo />
 };
 
 export const Dark: Story = {
-  render: () => renderWithTheme(darkTheme)
+  parameters: {
+    finnTheme: "dark"
+  },
+  render: () => <AvatarDemo />
 };
 
 export const Custom: Story = {
-  render: () => renderWithTheme(customTheme)
+  parameters: {
+    finnTheme: "custom"
+  },
+  render: () => <AvatarDemo />
 };
 
 export const Playground: Story = {

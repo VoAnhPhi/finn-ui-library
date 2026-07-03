@@ -1,26 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Button, Card, FormField, Input, Stack, Text, UIProvider } from "@finn-ui/react";
-import { createTheme, darkTheme, lightTheme } from "@finn-ui/theme";
-
-const customTheme = createTheme({
-  name: "form field custom",
-  colors: {
-    primary: "#0F766E",
-    card: "#ECFDF5",
-    border: "#99F6E4",
-    danger: "#BE123C",
-    muted: "#567066"
-  },
-  components: {
-    Input: {
-      radius: "lg"
-    },
-    Card: {
-      radius: "xl",
-      shadow: "md"
-    }
-  }
-});
+import { Box, Button, Card, FormField, Input, Stack, Text } from "@finn-ui/react";
 
 const meta = {
   title: "Components/FormField",
@@ -67,33 +46,31 @@ function FormFieldDemo() {
   );
 }
 
-function renderWithTheme(theme = lightTheme) {
-  return (
-    <UIProvider theme={theme}>
-      <FormFieldDemo />
-    </UIProvider>
-  );
-}
-
 export const Light: Story = {
   args: {
     children: <Input placeholder="Email" />
   },
-  render: () => renderWithTheme(lightTheme)
+  render: () => <FormFieldDemo />
 };
 
 export const Dark: Story = {
   args: {
     children: <Input placeholder="Email" />
   },
-  render: () => renderWithTheme(darkTheme)
+  parameters: {
+    finnTheme: "dark"
+  },
+  render: () => <FormFieldDemo />
 };
 
 export const Custom: Story = {
   args: {
     children: <Input placeholder="Email" />
   },
-  render: () => renderWithTheme(customTheme)
+  parameters: {
+    finnTheme: "custom"
+  },
+  render: () => <FormFieldDemo />
 };
 
 export const Playground: Story = {

@@ -1,28 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Box, Button, Stack, Text, UIProvider } from "@finn-ui/react";
-import { createTheme, darkTheme, lightTheme } from "@finn-ui/theme";
-
-const customTheme = createTheme({
-  name: "button custom",
-  colors: {
-    primary: "#7C3AED",
-    primaryForeground: "#FFFFFF",
-    danger: "#E11D48",
-    card: "#F5F3FF",
-    border: "#DDD6FE"
-  },
-  components: {
-    Button: {
-      radius: "xl",
-      borderWidth: "thin"
-    }
-  }
-});
+import { Box, Button, Stack, Text } from "@finn-ui/react";
 
 const meta = {
   title: "Components/Button",
   component: Button,
   tags: ["autodocs"],
+  argTypes: {
+    onClick: { action: "clicked" },
+    size: { control: "inline-radio", options: ["sm", "md", "lg"] },
+    tone: { control: "select", options: ["primary", "neutral", "danger", "success", "warning"] },
+    variant: { control: "select", options: ["solid", "outline", "ghost", "soft", "link"] }
+  },
   parameters: {
     layout: "centered"
   }
@@ -75,24 +63,53 @@ function ButtonGrid() {
   );
 }
 
-function renderWithTheme(theme = lightTheme) {
+function ButtonStateMatrix() {
   return (
-    <UIProvider theme={theme}>
-      <ButtonGrid />
-    </UIProvider>
+    <Box bg="card" color="foreground" radius="xl" shadow="sm">
+      <div style={{ padding: "var(--finn-spacing-2xl)" }}>
+        <Stack gap="lg">
+          <Stack gap="xs">
+            <Text variant="heading">Button recipes</Text>
+            <Text color="muted">Recipe styling uses data attributes for variant, tone, size, loading, disabled, focus, hover, and active states.</Text>
+          </Stack>
+          <Stack direction="row" gap="md" wrap="wrap">
+            <Button data-testid="button-recipe-solid">Default</Button>
+            <Button data-testid="button-recipe-focus">Tab focus target</Button>
+            <Button loading data-testid="button-recipe-loading">Loading</Button>
+            <Button disabled data-testid="button-recipe-disabled">Disabled</Button>
+          </Stack>
+          <Stack direction="row" gap="md" wrap="wrap">
+            <Button variant="outline" tone="neutral">Outline neutral</Button>
+            <Button variant="soft" tone="success">Soft success</Button>
+            <Button variant="ghost" tone="warning">Ghost warning</Button>
+            <Button variant="link" tone="danger">Link danger</Button>
+          </Stack>
+        </Stack>
+      </div>
+    </Box>
   );
 }
 
 export const Light: Story = {
-  render: () => renderWithTheme(lightTheme)
+  render: () => <ButtonGrid />
 };
 
 export const Dark: Story = {
-  render: () => renderWithTheme(darkTheme)
+  parameters: {
+    finnTheme: "dark"
+  },
+  render: () => <ButtonGrid />
 };
 
 export const Custom: Story = {
-  render: () => renderWithTheme(customTheme)
+  parameters: {
+    finnTheme: "custom"
+  },
+  render: () => <ButtonGrid />
+};
+
+export const Recipes: Story = {
+  render: () => <ButtonStateMatrix />
 };
 
 export const Playground: Story = {

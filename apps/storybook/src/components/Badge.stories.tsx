@@ -1,19 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Badge, Box, Stack, Text, UIProvider } from "@finn-ui/react";
-import { createTheme, darkTheme, lightTheme } from "@finn-ui/theme";
-
-const customTheme = createTheme({
-  name: "badge custom",
-  colors: {
-    primary: "#0F766E",
-    primaryForeground: "#FFFFFF",
-    danger: "#BE123C",
-    success: "#15803D",
-    warning: "#B45309",
-    card: "#F7FAF8",
-    border: "#BCD7C8"
-  }
-});
+import { Badge, Box, Stack, Text } from "@finn-ui/react";
 
 const meta = {
   title: "Components/Badge",
@@ -60,24 +46,22 @@ function BadgeGrid() {
   );
 }
 
-function renderWithTheme(theme = lightTheme) {
-  return (
-    <UIProvider theme={theme}>
-      <BadgeGrid />
-    </UIProvider>
-  );
-}
-
 export const Light: Story = {
-  render: () => renderWithTheme(lightTheme)
+  render: () => <BadgeGrid />
 };
 
 export const Dark: Story = {
-  render: () => renderWithTheme(darkTheme)
+  parameters: {
+    finnTheme: "dark"
+  },
+  render: () => <BadgeGrid />
 };
 
 export const Custom: Story = {
-  render: () => renderWithTheme(customTheme)
+  parameters: {
+    finnTheme: "custom"
+  },
+  render: () => <BadgeGrid />
 };
 
 export const Playground: Story = {
