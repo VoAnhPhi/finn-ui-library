@@ -2,7 +2,7 @@ import { createElement } from "react";
 import type { CSSProperties, HTMLAttributes, ReactElement, ReactNode } from "react";
 import type { RadiusToken, SpacingToken } from "@finn-ui/tokens";
 import { useTheme } from "../theme-context";
-import { createSpacingStyle, resolveBorderWidth, resolveColor, resolveRadius } from "./style";
+import { resolveBorderWidth, resolveColor, resolveRadius, resolveSpacing } from "./style";
 import type { ResponsiveElement, ThemeColorValue } from "./style";
 
 export type CardVariant = "solid" | "outline" | "elevated" | "ghost";
@@ -22,6 +22,8 @@ export type CardProps = NativeCardProps & {
   style?: CSSProperties;
 };
 
+type RecipeStyle = CSSProperties & Record<`--${string}`, string | number | undefined>;
+
 export function Card({
   as = "section",
   variant = "outline",
@@ -31,6 +33,7 @@ export function Card({
   borderWidth,
   borderColor,
   shadow,
+  className,
   style,
   children,
   ...rest
@@ -45,23 +48,32 @@ export function Card({
       : resolveBorderWidth(theme, borderWidthValue);
   const isBorderless = variant === "ghost" || borderWidthValue === "none" || resolvedBorderWidth === 0;
   const resolvedBorderColor = resolveColor(theme, borderColor ?? "border");
-  const resolvedStyle: CSSProperties = {
-    boxSizing: "border-box",
-    background: variant === "ghost" ? "transparent" : resolveColor(theme, bg ?? "card"),
-    color: resolveColor(theme, "cardForeground"),
-    borderRadius: resolveRadius(theme, radius ?? component.radius ?? "lg"),
-    borderStyle: isBorderless ? undefined : "solid",
-    borderWidth: isBorderless ? 0 : resolvedBorderWidth,
-    borderColor: isBorderless
+  const resolvedStyle: RecipeStyle = {
+    "--finn-card-bg": variant === "ghost" ? "transparent" : resolveColor(theme, bg ?? "card"),
+    "--finn-card-border-color": isBorderless
       ? "transparent"
       : `color-mix(in srgb, ${resolvedBorderColor} 68%, transparent)`,
-    boxShadow:
+    "--finn-card-border-style": isBorderless ? "none" : "solid",
+    "--finn-card-border-width": isBorderless ? 0 : resolvedBorderWidth,
+    "--finn-card-color": resolveColor(theme, "cardForeground"),
+    "--finn-card-padding": resolveSpacing(theme, p),
+    "--finn-card-radius": resolveRadius(theme, radius ?? component.radius ?? "lg"),
+    "--finn-card-shadow":
       variant === "elevated"
         ? theme.tokens.shadow[shadow ?? component.shadow ?? "md"]
         : theme.tokens.shadow[shadow ?? (variant === "solid" ? component.shadow ?? "sm" : "none")],
-    ...createSpacingStyle(theme, { p }),
     ...style
   };
 
-  return createElement(as, { ...rest, style: resolvedStyle }, children);
+  return createElement(
+    as,
+    {
+      ...rest,
+      className,
+      "data-finn-ui-card": true,
+      "data-variant": variant,
+      style: resolvedStyle
+    },
+    children
+  );
 }

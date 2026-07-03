@@ -17,6 +17,8 @@ export type DividerProps = NativeDividerProps & {
   style?: CSSProperties;
 };
 
+type RecipeStyle = CSSProperties & Record<`--${string}`, string | number | undefined>;
+
 export function Divider({
   orientation = "horizontal",
   size = 1,
@@ -30,27 +32,19 @@ export function Divider({
   const resolvedColor = resolveColor(theme, color);
   const dividerColor =
     color === "border" ? `color-mix(in srgb, ${resolvedColor} 70%, transparent)` : resolvedColor;
-  const resolvedStyle: CSSProperties =
-    orientation === "vertical"
-      ? {
-          alignSelf: "stretch",
-          background: dividerColor,
-          display: "inline-block",
-          marginLeft: resolvedSpacing,
-          marginRight: resolvedSpacing,
-          minHeight: 24,
-          width: size,
-          ...style
-        }
-      : {
-          background: dividerColor,
-          display: "block",
-          height: size,
-          marginBottom: resolvedSpacing,
-          marginTop: resolvedSpacing,
-          width: "100%",
-          ...style
-        };
+  const resolvedStyle: RecipeStyle = {
+    "--finn-divider-color": dividerColor,
+    "--finn-divider-size": `${size}px`,
+    "--finn-divider-spacing": resolvedSpacing,
+    ...style
+  };
 
-  return createElement("div", { ...rest, "aria-orientation": orientation, role: "separator", style: resolvedStyle });
+  return createElement("div", {
+    ...rest,
+    "aria-orientation": orientation,
+    "data-finn-ui-divider": true,
+    "data-orientation": orientation,
+    role: "separator",
+    style: resolvedStyle
+  });
 }

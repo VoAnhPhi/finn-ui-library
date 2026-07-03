@@ -2,6 +2,7 @@ import { createContext, createElement, useContext } from "react";
 import type { CSSProperties, HTMLAttributes, ReactElement, ReactNode } from "react";
 import { createThemeCssVariables, lightTheme } from "@finn-ui/theme";
 import type { Theme } from "@finn-ui/theme";
+import { finnUiRecipeCss } from "./recipes";
 
 const ThemeContext = createContext<Theme>(lightTheme);
 
@@ -33,6 +34,7 @@ export function UIProvider({
         "data-finn-theme": theme.name,
         style: themeStyle
       },
+      createElement("style", { "data-finn-ui-recipes": true }, finnUiRecipeCss),
       children
     )
   );

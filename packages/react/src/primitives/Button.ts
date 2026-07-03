@@ -23,20 +23,22 @@ export type ButtonProps = NativeButtonProps & {
   style?: CSSProperties;
 };
 
-const sizeStyles: Record<ButtonSize, CSSProperties> = {
+type RecipeStyle = CSSProperties & Record<`--${string}`, string | number | undefined>;
+
+const sizeStyles: Record<ButtonSize, RecipeStyle> = {
   sm: {
-    minHeight: 32,
-    padding: "0 12px",
+    "--finn-button-min-height": "32px",
+    "--finn-button-padding": "0 12px",
     fontSize: 14
   },
   md: {
-    minHeight: 40,
-    padding: "0 16px",
+    "--finn-button-min-height": "40px",
+    "--finn-button-padding": "0 16px",
     fontSize: 14
   },
   lg: {
-    minHeight: 48,
-    padding: "0 20px",
+    "--finn-button-min-height": "48px",
+    "--finn-button-padding": "0 20px",
     fontSize: 16
   }
 };
@@ -53,65 +55,71 @@ function createVariantStyle(
   variant: ButtonVariant,
   tone: ButtonTone,
   theme: ReturnType<typeof useTheme>
-): CSSProperties {
+): RecipeStyle {
   const toneColor = resolveColor(theme, tone);
   const foreground = resolveColor(theme, foregroundByTone[tone]);
   const softTone = `color-mix(in srgb, ${toneColor} 14%, transparent)`;
+  const hoverTone = `color-mix(in srgb, ${toneColor} 20%, transparent)`;
+  const activeTone = `color-mix(in srgb, ${toneColor} 88%, black)`;
   const subtleToneBorder = `color-mix(in srgb, ${toneColor} 42%, transparent)`;
+  const strongerToneBorder = `color-mix(in srgb, ${toneColor} 58%, transparent)`;
 
   if (variant === "solid") {
     return {
-      background: toneColor,
-      borderColor: "transparent",
-      color: foreground
+      "--finn-button-bg": toneColor,
+      "--finn-button-border-color": "transparent",
+      "--finn-button-color": foreground,
+      "--finn-button-hover-bg": activeTone,
+      "--finn-button-hover-border-color": "transparent",
+      "--finn-button-hover-shadow": "var(--finn-shadow-sm)"
     };
   }
 
   if (variant === "outline") {
     return {
-      background: "transparent",
-      borderColor: subtleToneBorder,
-      color: toneColor
+      "--finn-button-bg": "transparent",
+      "--finn-button-border-color": subtleToneBorder,
+      "--finn-button-color": toneColor,
+      "--finn-button-hover-bg": hoverTone,
+      "--finn-button-hover-border-color": strongerToneBorder
     };
   }
 
   if (variant === "soft") {
     return {
-      background: softTone,
-      borderColor: "transparent",
-      color: toneColor
+      "--finn-button-bg": softTone,
+      "--finn-button-border-color": "transparent",
+      "--finn-button-color": toneColor,
+      "--finn-button-hover-bg": hoverTone,
+      "--finn-button-hover-border-color": "transparent"
     };
   }
 
   if (variant === "link") {
     return {
-      background: "transparent",
-      borderColor: "transparent",
-      color: toneColor,
-      minHeight: undefined,
-      padding: 0,
-      textDecoration: "underline",
-      textUnderlineOffset: 3
+      "--finn-button-bg": "transparent",
+      "--finn-button-border-color": "transparent",
+      "--finn-button-border-width": 0,
+      "--finn-button-color": toneColor,
+      "--finn-button-hover-bg": "transparent",
+      "--finn-button-hover-border-color": "transparent",
+      "--finn-button-text-decoration": "underline"
     };
   }
 
   return {
-    background: "transparent",
-    borderColor: "transparent",
-    color: toneColor
+    "--finn-button-bg": "transparent",
+    "--finn-button-border-color": "transparent",
+    "--finn-button-color": toneColor,
+    "--finn-button-hover-bg": hoverTone,
+    "--finn-button-hover-border-color": "transparent"
   };
 }
 
 function LoadingDot() {
   return createElement("span", {
     "aria-hidden": true,
-    style: {
-      width: 8,
-      height: 8,
-      borderRadius: 999,
-      background: "currentColor",
-      opacity: 0.72
-    }
+    "data-finn-ui-button-dot": true
   });
 }
 
@@ -125,6 +133,7 @@ export function Button({
   disabled,
   leftIcon,
   rightIcon,
+  className,
   style,
   children,
   type = "button",
@@ -135,23 +144,11 @@ export function Button({
   const componentRadius = radius ?? theme.components.Button.radius ?? "lg";
   const componentBorderWidth = resolveBorderWidth(theme, theme.components.Button.borderWidth ?? "thin");
   const variantStyle = createVariantStyle(variant, tone, theme);
-  const resolvedStyle: CSSProperties = {
-    alignItems: "center",
-    appearance: "none",
-    borderStyle: "solid",
-    borderWidth: variant === "link" ? 0 : componentBorderWidth,
-    borderRadius: resolveRadius(theme, componentRadius),
-    boxSizing: "border-box",
-    cursor: isDisabled ? "not-allowed" : "pointer",
-    display: "inline-flex",
-    fontFamily: "var(--finn-font-family-sans)",
-    fontWeight: "var(--finn-font-weight-semibold)",
-    gap: "var(--finn-spacing-sm)",
-    justifyContent: "center",
-    lineHeight: 1,
-    opacity: isDisabled ? theme.tokens.opacity.disabled : 1,
-    transition: `background ${theme.tokens.duration.fast} ${theme.tokens.easing.standard}, border-color ${theme.tokens.duration.fast} ${theme.tokens.easing.standard}, color ${theme.tokens.duration.fast} ${theme.tokens.easing.standard}`,
-    width: fullWidth ? "100%" : undefined,
+  const resolvedStyle: RecipeStyle = {
+    "--finn-button-border-width": variant === "link" ? 0 : componentBorderWidth,
+    "--finn-button-focus-color": resolveColor(theme, tone),
+    "--finn-button-radius": resolveRadius(theme, componentRadius),
+    "--finn-button-width": fullWidth ? "100%" : undefined,
     ...sizeStyles[size],
     ...variantStyle,
     ...style
@@ -162,6 +159,12 @@ export function Button({
     {
       ...rest,
       "aria-busy": loading || undefined,
+      className,
+      "data-finn-ui-button": true,
+      "data-loading": loading ? true : undefined,
+      "data-size": size,
+      "data-tone": tone,
+      "data-variant": variant,
       disabled: isDisabled,
       style: resolvedStyle,
       type

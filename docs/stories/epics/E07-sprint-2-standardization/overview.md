@@ -54,9 +54,9 @@ code changes begin.
 | --- | --- | --- |
 | S2-001 Storybook source cleanup | Reorganize Storybook and remove stale/demo-only structure. | Good first slice before deeper component work. |
 | S2-002 Theme CSS variable runtime | Add semantic theme keys, custom theme, CSS variable generation, and provider injection. | Main technical foundation for Sprint 2. |
-| S2-003 Button/Input/Card recipes | Move the most important interactive components toward recipe/data-attribute styling. | Highest user-visible component quality impact. |
-| S2-004 Primitive standardization | Standardize `Box`, `Text`, `Stack`, and `Divider` around theme-aware props and baseline states. | Should preserve existing API where possible. |
-| S2-005 Storybook controls/actions/theme switcher | Add global theme decorator, structured stories, controls, and actions. | Requires Browser QA. |
+| S2-003 Button/Input/Card recipes | Move the most important interactive components toward recipe/data-attribute styling. | Implemented in `docs/stories/epics/E07-sprint-2-standardization/S2-003-button-input-card-recipes.md`. |
+| S2-004 Primitive standardization | Standardize `Box`, `Text`, `Stack`, and `Divider` around theme-aware props and baseline states. | Implemented in `docs/stories/epics/E07-sprint-2-standardization/S2-004-primitive-standardization.md`. |
+| S2-005 Storybook controls/actions/theme switcher | Add global theme decorator, structured stories, controls, and actions. | Implemented in `docs/stories/epics/E07-sprint-2-standardization/S2-005-storybook-controls-actions-theme-switcher.md`. |
 | S2-006 Demo landing app | Add `apps/demo` using Finn UI components directly. | Use the frontend app builder skill for visual concept and QA. |
 | S2-007 Validation and release readiness | Update scripts, package export checks, builds, and manual QA evidence. | Should close the sprint after component/demo work. |
 
@@ -81,6 +81,11 @@ code changes begin.
 | Demo app visual build | `build-web-apps:frontend-app-builder` | Use when building/polishing `apps/demo` landing showcase. |
 | Rendered frontend QA | `build-web-apps:frontend-testing-debugging` | Use for Storybook/demo local browser checks, screenshots, console health, and interactions. |
 | Browser validation | `browser:control-in-app-browser` | Prefer Browser plugin before standalone Playwright for local UI checks. |
+
+## Next Task Workflow
+
+At the end of each implementation, follow `docs/NEXT_TASK_WORKFLOW.md` and
+include the next concrete Sprint 2 story in the final handoff.
 
 ## Validation Shape
 
@@ -115,6 +120,7 @@ Do not include these in Sprint 2 unless the scope is explicitly changed:
 - Keep `style` and `className` as escape hatches, not the primary styling path.
 - Use CSS variables for runtime theme changes.
 - Use data attributes for component recipe states and variants.
+- Carry UI/UX research and follow-up cautions in `docs/UIUX_WORKFLOW_LOG.md`.
 - Do not let `apps/demo` become a separate large product; it is a showcase and
   real usage proof for the library.
 - Do not treat Storybook as the product; the package API remains the product.

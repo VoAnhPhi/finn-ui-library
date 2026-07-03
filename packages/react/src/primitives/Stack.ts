@@ -18,6 +18,8 @@ export type StackProps = NativeStackProps & {
   style?: CSSProperties;
 };
 
+type RecipeStyle = CSSProperties & Record<`--${string}`, string | number | undefined>;
+
 export function Stack({
   as = "div",
   direction = "column",
@@ -30,15 +32,23 @@ export function Stack({
   ...rest
 }: StackProps): ReactElement {
   const theme = useTheme();
-  const resolvedStyle: CSSProperties = {
-    display: "flex",
-    flexDirection: direction,
-    gap: resolveSpacing(theme, gap),
-    alignItems: align,
-    justifyContent: justify,
-    flexWrap: wrap,
+  const resolvedStyle: RecipeStyle = {
+    "--finn-stack-align": align,
+    "--finn-stack-direction": direction,
+    "--finn-stack-gap": resolveSpacing(theme, gap),
+    "--finn-stack-justify": justify,
+    "--finn-stack-wrap": wrap,
     ...style
   };
 
-  return createElement(as, { ...rest, style: resolvedStyle }, children);
+  return createElement(
+    as,
+    {
+      ...rest,
+      "data-direction": direction,
+      "data-finn-ui-stack": true,
+      style: resolvedStyle
+    },
+    children
+  );
 }

@@ -50,6 +50,12 @@ const colorByTone = {
   warning: "warning"
 } as const;
 
+type RecipeStyle = CSSProperties & Record<`--${string}`, string | number | undefined>;
+
+function toCssLength(value: number | string | undefined) {
+  return typeof value === "number" ? `${value}px` : value;
+}
+
 export function Text({
   as,
   variant = "body",
@@ -63,18 +69,33 @@ export function Text({
   ...rest
 }: TextProps): ReactElement {
   const theme = useTheme();
-  const resolvedWeight = typeof weight === "string" ? theme.tokens.typography.fontWeight[weight] : weight;
-  const resolvedSize = typeof size === "string" ? theme.tokens.typography.fontSize[size] : size;
-  const resolvedStyle: CSSProperties = {
-    margin: 0,
-    fontFamily: theme.tokens.typography.fontFamily.sans,
-    color: resolveColor(theme, color ?? colorByTone[tone]),
-    textAlign: align,
-    ...variantStyles[variant],
-    fontWeight: resolvedWeight ?? variantStyles[variant].fontWeight,
-    fontSize: resolvedSize ?? variantStyles[variant].fontSize,
+  const variantStyle = variantStyles[variant];
+  const resolvedWeight =
+    typeof weight === "string"
+      ? `var(--finn-font-weight-${weight}, ${theme.tokens.typography.fontWeight[weight]})`
+      : weight;
+  const resolvedSize =
+    typeof size === "string"
+      ? `var(--finn-font-size-${size}, ${theme.tokens.typography.fontSize[size]})`
+      : toCssLength(size);
+  const resolvedStyle: RecipeStyle = {
+    "--finn-text-align": align,
+    "--finn-text-color": resolveColor(theme, color ?? colorByTone[tone]),
+    "--finn-text-line-height": variantStyle.lineHeight,
+    "--finn-text-size": resolvedSize ?? toCssLength(variantStyle.fontSize),
+    "--finn-text-weight": resolvedWeight ?? variantStyle.fontWeight,
     ...style
   };
 
-  return createElement(as ?? defaultElementByVariant[variant], { ...rest, style: resolvedStyle }, children);
+  return createElement(
+    as ?? defaultElementByVariant[variant],
+    {
+      ...rest,
+      "data-finn-ui-text": true,
+      "data-tone": tone,
+      "data-variant": variant,
+      style: resolvedStyle
+    },
+    children
+  );
 }
