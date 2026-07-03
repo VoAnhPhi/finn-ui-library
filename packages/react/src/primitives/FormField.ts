@@ -1,6 +1,7 @@
 import { cloneElement, createElement, isValidElement, useId } from "react";
 import type { CSSProperties, HTMLAttributes, ReactElement, ReactNode } from "react";
 import { useTheme } from "../theme-context";
+import { resolveColor } from "./style";
 
 type NativeFormFieldProps = Omit<HTMLAttributes<HTMLDivElement>, "children" | "id">;
 
@@ -45,22 +46,22 @@ export function FormField({
   const rootStyle: CSSProperties = {
     display: "flex",
     flexDirection: "column",
-    gap: theme.tokens.spacing.xs,
+    gap: "var(--finn-spacing-md)",
     width: "100%",
     ...style
   };
   const labelStyle: CSSProperties = {
-    color: theme.colors.foreground,
-    fontFamily: theme.tokens.typography.fontFamily.sans,
-    fontSize: theme.tokens.typography.fontSize.sm,
-    fontWeight: theme.tokens.typography.fontWeight.semibold,
-    lineHeight: theme.tokens.typography.lineHeight.normal
+    color: resolveColor(theme, "foreground"),
+    fontFamily: "var(--finn-font-family-sans)",
+    fontSize: "var(--finn-font-size-sm)",
+    fontWeight: "var(--finn-font-weight-semibold)",
+    lineHeight: "var(--finn-line-height-normal)"
   };
   const metaStyle: CSSProperties = {
-    color: theme.colors.muted,
-    fontFamily: theme.tokens.typography.fontFamily.sans,
-    fontSize: theme.tokens.typography.fontSize.sm,
-    lineHeight: theme.tokens.typography.lineHeight.normal
+    color: resolveColor(theme, "muted"),
+    fontFamily: "var(--finn-font-family-sans)",
+    fontSize: "var(--finn-font-size-sm)",
+    lineHeight: "var(--finn-line-height-normal)"
   };
   const errorStyle: CSSProperties = {
     ...metaStyle,
@@ -81,7 +82,7 @@ export function FormField({
           { htmlFor: controlId, style: labelStyle },
           label,
           required
-            ? createElement("span", { "aria-hidden": true, style: { color: theme.colors.danger } }, " *")
+            ? createElement("span", { "aria-hidden": true, style: { color: resolveColor(theme, "danger") } }, " *")
             : null
         )
       : null,

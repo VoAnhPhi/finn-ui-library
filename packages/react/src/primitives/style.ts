@@ -28,12 +28,26 @@ export type SurfaceStyleProps = {
   shadow?: ShadowToken;
 };
 
+function toCssName(value: string) {
+  return value.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+}
+
+function toCssLength(value: number | string) {
+  return typeof value === "number" ? `${value}px` : value;
+}
+
+function cssVariable(prefix: string, name: string, fallback: number | string) {
+  return `var(--finn-${prefix}-${toCssName(name)}, ${toCssLength(fallback)})`;
+}
+
 export function resolveSpacing(theme: Theme, value: SpacingToken | number | undefined) {
   if (value == null) {
     return undefined;
   }
 
-  return typeof value === "number" ? value : theme.tokens.spacing[value];
+  return typeof value === "number"
+    ? value
+    : cssVariable("spacing", value, theme.tokens.spacing[value]);
 }
 
 export function resolveColor(theme: Theme, value: ThemeColorValue | undefined) {
@@ -41,7 +55,9 @@ export function resolveColor(theme: Theme, value: ThemeColorValue | undefined) {
     return undefined;
   }
 
-  return value in theme.colors ? theme.colors[value as ThemeColorName] : value;
+  return value in theme.colors
+    ? cssVariable("color", value, theme.colors[value as ThemeColorName])
+    : value;
 }
 
 export function resolveRadius(theme: Theme, value: RadiusToken | number | undefined) {
@@ -49,7 +65,9 @@ export function resolveRadius(theme: Theme, value: RadiusToken | number | undefi
     return undefined;
   }
 
-  return typeof value === "number" ? value : theme.tokens.radius[value];
+  return typeof value === "number"
+    ? value
+    : cssVariable("radius", value, theme.tokens.radius[value]);
 }
 
 export function resolveBorderWidth(theme: Theme, value: BorderWidthToken | number | undefined) {
@@ -57,7 +75,9 @@ export function resolveBorderWidth(theme: Theme, value: BorderWidthToken | numbe
     return undefined;
   }
 
-  return typeof value === "number" ? value : theme.tokens.borderWidth[value];
+  return typeof value === "number"
+    ? value
+    : cssVariable("border-width", value, theme.tokens.borderWidth[value]);
 }
 
 export function createSpacingStyle(theme: Theme, props: SpacingStyleProps): CSSProperties {
@@ -83,6 +103,7 @@ export function createSpacingStyle(theme: Theme, props: SpacingStyleProps): CSSP
 
 export function createSurfaceStyle(theme: Theme, props: SurfaceStyleProps): CSSProperties {
   const borderWidth = resolveBorderWidth(theme, props.borderWidth);
+  const borderColor = resolveColor(theme, props.borderColor);
 
   return {
     background: resolveColor(theme, props.bg),
@@ -90,7 +111,10 @@ export function createSurfaceStyle(theme: Theme, props: SurfaceStyleProps): CSSP
     borderRadius: resolveRadius(theme, props.radius),
     borderWidth,
     borderStyle: borderWidth == null || borderWidth === 0 ? undefined : "solid",
-    borderColor: resolveColor(theme, props.borderColor),
+    borderColor:
+      borderWidth == null || borderWidth === 0 || borderColor == null
+        ? borderColor
+        : `color-mix(in srgb, ${borderColor} 68%, transparent)`,
     boxShadow: props.shadow == null ? undefined : theme.tokens.shadow[props.shadow]
   };
 }

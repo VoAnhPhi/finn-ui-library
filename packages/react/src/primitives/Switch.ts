@@ -1,6 +1,7 @@
 import { createElement } from "react";
 import type { CSSProperties, InputHTMLAttributes, ReactElement, ReactNode } from "react";
 import { useTheme } from "../theme-context";
+import { resolveColor } from "./style";
 
 export type SwitchTone = "primary" | "neutral" | "danger" | "success" | "warning";
 export type SwitchSize = "sm" | "md";
@@ -49,10 +50,10 @@ export function Switch({
   const isChecked = checked ?? defaultChecked ?? false;
   const rootStyle: CSSProperties = {
     alignItems: "center",
-    color: disabled ? theme.colors.muted : theme.colors.foreground,
+    color: disabled ? resolveColor(theme, "muted") : resolveColor(theme, "foreground"),
     cursor: disabled ? "not-allowed" : "pointer",
     display: "inline-flex",
-    fontFamily: theme.tokens.typography.fontFamily.sans,
+    fontFamily: "var(--finn-font-family-sans)",
     fontSize: dimensions.fontSize,
     gap: theme.tokens.spacing.sm,
     lineHeight: theme.tokens.typography.lineHeight.normal,
@@ -69,8 +70,8 @@ export function Switch({
   };
   const trackStyle: CSSProperties = {
     alignItems: "center",
-    background: isChecked ? theme.colors[tone] : theme.tokens.colors.gray200,
-    borderRadius: theme.tokens.radius.full,
+    background: isChecked ? resolveColor(theme, tone) : `color-mix(in srgb, ${resolveColor(theme, "border")} 70%, transparent)`,
+    borderRadius: "var(--finn-radius-full)",
     boxSizing: "border-box",
     display: "inline-flex",
     flexShrink: 0,
@@ -80,9 +81,9 @@ export function Switch({
     width: dimensions.width
   };
   const thumbStyle: CSSProperties = {
-    background: theme.colors.background,
-    borderRadius: theme.tokens.radius.full,
-    boxShadow: theme.tokens.shadow.sm,
+    background: resolveColor(theme, "background"),
+    borderRadius: "var(--finn-radius-full)",
+    boxShadow: "var(--finn-shadow-sm)",
     height: dimensions.thumb,
     transform: `translateX(${isChecked ? dimensions.width - dimensions.thumb - dimensions.offset * 2 : 0}px)`,
     transition: `transform ${theme.tokens.duration.fast} ${theme.tokens.easing.standard}`,

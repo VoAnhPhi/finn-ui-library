@@ -2,7 +2,7 @@ import { createElement } from "react";
 import type { CSSProperties, HTMLAttributes, ReactElement, ReactNode } from "react";
 import type { RadiusToken, SpacingToken } from "@finn-ui/tokens";
 import { useTheme } from "../theme-context";
-import { createSpacingStyle, resolveColor, resolveRadius } from "./style";
+import { createSpacingStyle, resolveBorderWidth, resolveColor, resolveRadius } from "./style";
 import type { ResponsiveElement, ThemeColorValue } from "./style";
 
 export type CardVariant = "solid" | "outline" | "elevated" | "ghost";
@@ -37,11 +37,14 @@ export function Card({
 }: CardProps): ReactElement {
   const theme = useTheme();
   const component = theme.components.Card;
+  const defaultBorderWidth = variant === "outline" ? component.borderWidth ?? "thin" : "none";
+  const borderWidthValue = borderWidth ?? defaultBorderWidth;
   const resolvedBorderWidth =
     typeof borderWidth === "number"
       ? borderWidth
-      : theme.tokens.borderWidth[borderWidth ?? component.borderWidth ?? "thin"];
-  const isBorderless = variant === "ghost" || resolvedBorderWidth === 0;
+      : resolveBorderWidth(theme, borderWidthValue);
+  const isBorderless = variant === "ghost" || borderWidthValue === "none" || resolvedBorderWidth === 0;
+  const resolvedBorderColor = resolveColor(theme, borderColor ?? "border");
   const resolvedStyle: CSSProperties = {
     boxSizing: "border-box",
     background: variant === "ghost" ? "transparent" : resolveColor(theme, bg ?? "card"),
@@ -49,7 +52,9 @@ export function Card({
     borderRadius: resolveRadius(theme, radius ?? component.radius ?? "lg"),
     borderStyle: isBorderless ? undefined : "solid",
     borderWidth: isBorderless ? 0 : resolvedBorderWidth,
-    borderColor: isBorderless ? "transparent" : resolveColor(theme, borderColor ?? "border"),
+    borderColor: isBorderless
+      ? "transparent"
+      : `color-mix(in srgb, ${resolvedBorderColor} 68%, transparent)`,
     boxShadow:
       variant === "elevated"
         ? theme.tokens.shadow[shadow ?? component.shadow ?? "md"]

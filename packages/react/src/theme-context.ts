@@ -1,17 +1,41 @@
 import { createContext, createElement, useContext } from "react";
-import type { ReactElement, ReactNode } from "react";
-import { lightTheme } from "@finn-ui/theme";
+import type { CSSProperties, HTMLAttributes, ReactElement, ReactNode } from "react";
+import { createThemeCssVariables, lightTheme } from "@finn-ui/theme";
 import type { Theme } from "@finn-ui/theme";
 
 const ThemeContext = createContext<Theme>(lightTheme);
 
-export type UIProviderProps = {
+export type UIProviderProps = Omit<HTMLAttributes<HTMLDivElement>, "children"> & {
   theme?: Theme;
   children: ReactNode;
 };
 
-export function UIProvider({ theme = lightTheme, children }: UIProviderProps): ReactElement {
-  return createElement(ThemeContext.Provider, { value: theme }, children);
+export function UIProvider({
+  theme = lightTheme,
+  children,
+  style,
+  ...rest
+}: UIProviderProps): ReactElement {
+  const themeStyle: CSSProperties = {
+    ...(createThemeCssVariables(theme) as CSSProperties),
+    color: "var(--finn-color-foreground)",
+    fontFamily: "var(--finn-font-family-sans)",
+    ...style
+  };
+
+  return createElement(
+    ThemeContext.Provider,
+    { value: theme },
+    createElement(
+      "div",
+      {
+        ...rest,
+        "data-finn-theme": theme.name,
+        style: themeStyle
+      },
+      children
+    )
+  );
 }
 
 export function useTheme(): Theme {

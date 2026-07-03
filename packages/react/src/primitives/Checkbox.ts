@@ -1,6 +1,7 @@
 import { createElement } from "react";
 import type { CSSProperties, InputHTMLAttributes, ReactElement, ReactNode } from "react";
 import { useTheme } from "../theme-context";
+import { resolveColor } from "./style";
 
 export type CheckboxTone = "primary" | "neutral" | "danger" | "success" | "warning";
 export type CheckboxSize = "sm" | "md";
@@ -43,13 +44,13 @@ export function Checkbox({
   const theme = useTheme();
   const dimensions = sizeStyles[size];
   const isChecked = checked ?? defaultChecked ?? false;
-  const toneColor = theme.colors[tone];
+  const toneColor = resolveColor(theme, tone);
   const rootStyle: CSSProperties = {
     alignItems: "center",
-    color: disabled ? theme.colors.muted : theme.colors.foreground,
+    color: disabled ? resolveColor(theme, "muted") : resolveColor(theme, "foreground"),
     cursor: disabled ? "not-allowed" : "pointer",
     display: "inline-flex",
-    fontFamily: theme.tokens.typography.fontFamily.sans,
+    fontFamily: "var(--finn-font-family-sans)",
     fontSize: dimensions.fontSize,
     gap: theme.tokens.spacing.sm,
     lineHeight: theme.tokens.typography.lineHeight.normal,
@@ -66,13 +67,13 @@ export function Checkbox({
   };
   const boxStyle: CSSProperties = {
     alignItems: "center",
-    background: isChecked ? toneColor : theme.colors.background,
-    borderColor: isChecked ? toneColor : theme.colors.border,
-    borderRadius: theme.tokens.radius.sm,
+    background: isChecked ? toneColor : resolveColor(theme, "background"),
+    borderColor: isChecked ? "transparent" : `color-mix(in srgb, ${resolveColor(theme, "border")} 76%, transparent)`,
+    borderRadius: "var(--finn-radius-sm)",
     borderStyle: "solid",
-    borderWidth: theme.tokens.borderWidth.thin,
+    borderWidth: "var(--finn-border-width-thin)",
     boxSizing: "border-box",
-    color: theme.colors[`${tone}Foreground`],
+    color: resolveColor(theme, `${tone}Foreground`),
     display: "inline-flex",
     flexShrink: 0,
     height: dimensions.box,

@@ -27,11 +27,14 @@ export function Divider({
 }: DividerProps): ReactElement {
   const theme = useTheme();
   const resolvedSpacing = resolveSpacing(theme, spacing);
+  const resolvedColor = resolveColor(theme, color);
+  const dividerColor =
+    color === "border" ? `color-mix(in srgb, ${resolvedColor} 70%, transparent)` : resolvedColor;
   const resolvedStyle: CSSProperties =
     orientation === "vertical"
       ? {
           alignSelf: "stretch",
-          background: resolveColor(theme, color),
+          background: dividerColor,
           display: "inline-block",
           marginLeft: resolvedSpacing,
           marginRight: resolvedSpacing,
@@ -40,7 +43,7 @@ export function Divider({
           ...style
         }
       : {
-          background: resolveColor(theme, color),
+          background: dividerColor,
           display: "block",
           height: size,
           marginBottom: resolvedSpacing,

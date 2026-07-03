@@ -2,7 +2,7 @@ import { createElement } from "react";
 import type { CSSProperties, InputHTMLAttributes, ReactElement, ReactNode } from "react";
 import type { RadiusToken } from "@finn-ui/tokens";
 import { useTheme } from "../theme-context";
-import { resolveRadius } from "./style";
+import { resolveBorderWidth, resolveColor, resolveRadius } from "./style";
 
 export type InputSize = "sm" | "md" | "lg";
 
@@ -52,24 +52,26 @@ export function Input({
   const inputId = id;
   const errorId = error && inputId ? `${inputId}-error` : undefined;
   const invalid = Boolean(error || rest["aria-invalid"]);
-  const borderColor = invalid ? theme.colors.danger : theme.colors.border;
+  const borderColor = invalid
+    ? `color-mix(in srgb, ${resolveColor(theme, "danger")} 70%, transparent)`
+    : `color-mix(in srgb, ${resolveColor(theme, "border")} 72%, transparent)`;
   const wrapperStyle: CSSProperties = {
     display: "flex",
     flexDirection: "column",
-    gap: theme.tokens.spacing.xs,
+    gap: "var(--finn-spacing-xs)",
     width: "100%"
   };
   const controlStyle: CSSProperties = {
     alignItems: "center",
-    background: disabled ? theme.tokens.colors.gray100 : theme.colors.background,
+    background: disabled ? "var(--finn-token-color-gray-100)" : resolveColor(theme, "background"),
     borderColor,
     borderRadius: resolveRadius(theme, radius ?? theme.components.Input.radius ?? "md"),
     borderStyle: "solid",
-    borderWidth: theme.tokens.borderWidth[theme.components.Input.borderWidth ?? "thin"],
+    borderWidth: resolveBorderWidth(theme, theme.components.Input.borderWidth ?? "thin"),
     boxSizing: "border-box",
-    color: theme.colors.foreground,
+    color: resolveColor(theme, "foreground"),
     display: "flex",
-    gap: theme.tokens.spacing.sm,
+    gap: "var(--finn-spacing-sm)",
     opacity: disabled ? theme.tokens.opacity.disabled : 1,
     width: "100%"
   };
@@ -80,17 +82,17 @@ export function Input({
     boxSizing: "border-box",
     color: "inherit",
     flex: 1,
-    fontFamily: theme.tokens.typography.fontFamily.sans,
+    fontFamily: "var(--finn-font-family-sans)",
     minWidth: 0,
     outline: "none",
     width: "100%",
     ...style
   };
   const iconStyle: CSSProperties = {
-    color: invalid ? theme.colors.danger : theme.colors.muted,
+    color: invalid ? resolveColor(theme, "danger") : resolveColor(theme, "muted"),
     display: "inline-flex",
-    paddingLeft: leftIcon ? theme.tokens.spacing.md : 0,
-    paddingRight: rightIcon ? theme.tokens.spacing.md : 0
+    paddingLeft: leftIcon ? "var(--finn-spacing-md)" : 0,
+    paddingRight: rightIcon ? "var(--finn-spacing-md)" : 0
   };
 
   return createElement(
@@ -118,10 +120,10 @@ export function Input({
             id: errorId,
             role: "alert",
             style: {
-              color: theme.colors.danger,
-              fontFamily: theme.tokens.typography.fontFamily.sans,
-              fontSize: theme.tokens.typography.fontSize.sm,
-              lineHeight: theme.tokens.typography.lineHeight.normal
+              color: resolveColor(theme, "danger"),
+              fontFamily: "var(--finn-font-family-sans)",
+              fontSize: "var(--finn-font-size-sm)",
+              lineHeight: "var(--finn-line-height-normal)"
             }
           },
           error

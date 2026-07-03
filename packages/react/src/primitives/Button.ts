@@ -2,7 +2,7 @@ import { createElement } from "react";
 import type { ButtonHTMLAttributes, CSSProperties, ReactElement, ReactNode } from "react";
 import type { RadiusToken } from "@finn-ui/tokens";
 import { useTheme } from "../theme-context";
-import { resolveRadius } from "./style";
+import { resolveBorderWidth, resolveColor, resolveRadius } from "./style";
 
 export type ButtonVariant = "solid" | "outline" | "ghost" | "soft" | "link";
 export type ButtonTone = "primary" | "neutral" | "danger" | "success" | "warning";
@@ -49,26 +49,20 @@ const foregroundByTone = {
   warning: "warningForeground"
 } as const;
 
-const softBackgroundByTone = {
-  primary: "rgb(37 99 235 / 0.12)",
-  neutral: "rgb(55 65 81 / 0.1)",
-  danger: "rgb(220 38 38 / 0.12)",
-  success: "rgb(22 163 74 / 0.12)",
-  warning: "rgb(245 158 11 / 0.16)"
-} as const;
-
 function createVariantStyle(
   variant: ButtonVariant,
   tone: ButtonTone,
-  colors: ReturnType<typeof useTheme>["colors"]
+  theme: ReturnType<typeof useTheme>
 ): CSSProperties {
-  const toneColor = colors[tone];
-  const foreground = colors[foregroundByTone[tone]];
+  const toneColor = resolveColor(theme, tone);
+  const foreground = resolveColor(theme, foregroundByTone[tone]);
+  const softTone = `color-mix(in srgb, ${toneColor} 14%, transparent)`;
+  const subtleToneBorder = `color-mix(in srgb, ${toneColor} 42%, transparent)`;
 
   if (variant === "solid") {
     return {
       background: toneColor,
-      borderColor: toneColor,
+      borderColor: "transparent",
       color: foreground
     };
   }
@@ -76,14 +70,14 @@ function createVariantStyle(
   if (variant === "outline") {
     return {
       background: "transparent",
-      borderColor: toneColor,
+      borderColor: subtleToneBorder,
       color: toneColor
     };
   }
 
   if (variant === "soft") {
     return {
-      background: softBackgroundByTone[tone],
+      background: softTone,
       borderColor: "transparent",
       color: toneColor
     };
@@ -139,8 +133,8 @@ export function Button({
   const theme = useTheme();
   const isDisabled = disabled || loading;
   const componentRadius = radius ?? theme.components.Button.radius ?? "lg";
-  const componentBorderWidth = theme.tokens.borderWidth[theme.components.Button.borderWidth ?? "thin"];
-  const variantStyle = createVariantStyle(variant, tone, theme.colors);
+  const componentBorderWidth = resolveBorderWidth(theme, theme.components.Button.borderWidth ?? "thin");
+  const variantStyle = createVariantStyle(variant, tone, theme);
   const resolvedStyle: CSSProperties = {
     alignItems: "center",
     appearance: "none",
@@ -150,9 +144,9 @@ export function Button({
     boxSizing: "border-box",
     cursor: isDisabled ? "not-allowed" : "pointer",
     display: "inline-flex",
-    fontFamily: theme.tokens.typography.fontFamily.sans,
-    fontWeight: theme.tokens.typography.fontWeight.semibold,
-    gap: theme.tokens.spacing.sm,
+    fontFamily: "var(--finn-font-family-sans)",
+    fontWeight: "var(--finn-font-weight-semibold)",
+    gap: "var(--finn-spacing-sm)",
     justifyContent: "center",
     lineHeight: 1,
     opacity: isDisabled ? theme.tokens.opacity.disabled : 1,

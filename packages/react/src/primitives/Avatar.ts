@@ -2,7 +2,7 @@ import { createElement } from "react";
 import type { CSSProperties, HTMLAttributes, ReactElement, ReactNode } from "react";
 import type { RadiusToken } from "@finn-ui/tokens";
 import { useTheme } from "../theme-context";
-import { resolveRadius } from "./style";
+import { resolveColor, resolveRadius } from "./style";
 
 export type AvatarSize = "sm" | "md" | "lg" | "xl";
 export type AvatarTone = "primary" | "neutral" | "danger" | "success" | "warning";
@@ -60,13 +60,13 @@ export function Avatar({
   const dimensions = sizeStyles[size];
   const resolvedStyle: CSSProperties = {
     alignItems: "center",
-    background: theme.colors[tone],
+    background: resolveColor(theme, tone),
     borderRadius: resolveRadius(theme, radius),
     boxSizing: "border-box",
-    color: theme.colors[foregroundByTone[tone]],
+    color: resolveColor(theme, foregroundByTone[tone]),
     display: "inline-flex",
     flexShrink: 0,
-    fontFamily: theme.tokens.typography.fontFamily.sans,
+    fontFamily: "var(--finn-font-family-sans)",
     fontSize: dimensions.fontSize,
     fontWeight: theme.tokens.typography.fontWeight.semibold,
     height: dimensions.box,

@@ -2,7 +2,7 @@ import { createElement } from "react";
 import type { CSSProperties, HTMLAttributes, ReactElement, ReactNode } from "react";
 import type { RadiusToken } from "@finn-ui/tokens";
 import { useTheme } from "../theme-context";
-import { resolveRadius } from "./style";
+import { resolveColor, resolveRadius } from "./style";
 import type { ResponsiveElement } from "./style";
 
 export type BadgeVariant = "solid" | "soft" | "outline";
@@ -42,26 +42,18 @@ const foregroundByTone = {
   warning: "warningForeground"
 } as const;
 
-const softBackgroundByTone = {
-  primary: "rgb(37 99 235 / 0.12)",
-  neutral: "rgb(55 65 81 / 0.1)",
-  danger: "rgb(220 38 38 / 0.12)",
-  success: "rgb(22 163 74 / 0.12)",
-  warning: "rgb(245 158 11 / 0.16)"
-} as const;
-
 function createVariantStyle(
   variant: BadgeVariant,
   tone: BadgeTone,
-  colors: ReturnType<typeof useTheme>["colors"]
+  theme: ReturnType<typeof useTheme>
 ): CSSProperties {
-  const toneColor = colors[tone];
-  const foreground = colors[foregroundByTone[tone]];
+  const toneColor = resolveColor(theme, tone);
+  const foreground = resolveColor(theme, foregroundByTone[tone]);
 
   if (variant === "solid") {
     return {
       background: toneColor,
-      borderColor: toneColor,
+      borderColor: "transparent",
       color: foreground
     };
   }
@@ -69,13 +61,13 @@ function createVariantStyle(
   if (variant === "outline") {
     return {
       background: "transparent",
-      borderColor: toneColor,
+      borderColor: `color-mix(in srgb, ${toneColor} 38%, transparent)`,
       color: toneColor
     };
   }
 
   return {
-    background: softBackgroundByTone[tone],
+    background: `color-mix(in srgb, ${toneColor} 14%, transparent)`,
     borderColor: "transparent",
     color: toneColor
   };
@@ -92,16 +84,16 @@ export function Badge({
   ...rest
 }: BadgeProps): ReactElement {
   const theme = useTheme();
-  const variantStyle = createVariantStyle(variant, tone, theme.colors);
+  const variantStyle = createVariantStyle(variant, tone, theme);
   const resolvedStyle: CSSProperties = {
     alignItems: "center",
     borderRadius: resolveRadius(theme, radius),
     borderStyle: "solid",
-    borderWidth: theme.tokens.borderWidth.thin,
+    borderWidth: "var(--finn-border-width-thin)",
     boxSizing: "border-box",
     display: "inline-flex",
-    fontFamily: theme.tokens.typography.fontFamily.sans,
-    fontWeight: theme.tokens.typography.fontWeight.semibold,
+    fontFamily: "var(--finn-font-family-sans)",
+    fontWeight: "var(--finn-font-weight-semibold)",
     justifyContent: "center",
     lineHeight: 1,
     whiteSpace: "nowrap",
