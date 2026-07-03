@@ -38,6 +38,9 @@ packet, durable matrix row, or both.
 | P6-003 | Add React Checkbox and Switch components | yes | yes | no | yes | implemented | `pnpm release:check`, Storybook Selection Controls stories, Browser QA |
 | P6-004 | Add React Avatar component | yes | yes | no | yes | implemented | `pnpm release:check`, Storybook Avatar stories, Browser QA |
 | P6-005 | Add React Skeleton component | yes | yes | no | yes | implemented | `pnpm release:check`, Storybook Skeleton stories, Browser QA |
+| S2-003 | Button/Input/Card recipe styling with data attributes and CSS variables | yes | yes | no | yes | implemented | `pnpm typecheck`, `pnpm build`, `pnpm build:storybook`, Browser QA on Button Recipes and Form Surface Recipes |
+| S2-004 | Primitive recipe standardization for Box, Text, Stack, and Divider | yes | yes | no | yes | implemented | `pnpm typecheck`, `pnpm build`, `pnpm build:storybook`, Browser QA on Primitives Recipes |
+| S2-005 | Storybook global theme decorator, controls, actions, and toolbar switcher | yes | yes | no | yes | implemented | `pnpm typecheck`, `pnpm build`, `pnpm build:storybook`, Browser QA on toolbar theme switching and custom theme stories |
 | S2-INIT | Plan Sprint 2 component standardization, theme runtime, Storybook cleanup, and demo app initiative | no | no | no | no | planned | `docs/stories/epics/E07-sprint-2-standardization/overview.md`, `SPEC-2.md` |
 
 ## Evidence Rules
