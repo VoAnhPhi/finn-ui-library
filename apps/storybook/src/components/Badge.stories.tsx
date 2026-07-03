@@ -30,30 +30,32 @@ type Story = StoryObj<typeof meta>;
 
 function BadgeGrid() {
   return (
-    <Box bg="background" color="foreground" p="xl" radius="xl" borderWidth="thin" borderColor="border">
-      <Stack gap="lg">
-        <Stack gap="xs">
-          <Text variant="heading">Badge</Text>
-          <Text color="muted">Compact labels for status, category, and metadata.</Text>
+    <Box bg="card" color="foreground" radius="xl" shadow="sm">
+      <div style={{ padding: "var(--finn-spacing-2xl)" }}>
+        <Stack gap="lg">
+          <Stack gap="xs">
+            <Text variant="heading">Badge</Text>
+            <Text color="muted">Compact labels for status, category, and metadata.</Text>
+          </Stack>
+          <Stack direction="row" gap="sm" wrap="wrap">
+            <Badge variant="solid" tone="primary">Solid</Badge>
+            <Badge variant="soft" tone="primary">Soft</Badge>
+            <Badge variant="outline" tone="primary">Outline</Badge>
+          </Stack>
+          <Stack direction="row" gap="sm" wrap="wrap">
+            <Badge tone="primary">Primary</Badge>
+            <Badge tone="neutral">Neutral</Badge>
+            <Badge tone="danger">Danger</Badge>
+            <Badge tone="success">Success</Badge>
+            <Badge tone="warning">Warning</Badge>
+          </Stack>
+          <Stack direction="row" gap="sm" align="center" wrap="wrap">
+            <Badge size="sm">Small</Badge>
+            <Badge size="md">Medium</Badge>
+            <Badge radius="md">Radius md</Badge>
+          </Stack>
         </Stack>
-        <Stack direction="row" gap="sm" wrap="wrap">
-          <Badge variant="solid" tone="primary">Solid</Badge>
-          <Badge variant="soft" tone="primary">Soft</Badge>
-          <Badge variant="outline" tone="primary">Outline</Badge>
-        </Stack>
-        <Stack direction="row" gap="sm" wrap="wrap">
-          <Badge tone="primary">Primary</Badge>
-          <Badge tone="neutral">Neutral</Badge>
-          <Badge tone="danger">Danger</Badge>
-          <Badge tone="success">Success</Badge>
-          <Badge tone="warning">Warning</Badge>
-        </Stack>
-        <Stack direction="row" gap="sm" align="center" wrap="wrap">
-          <Badge size="sm">Small</Badge>
-          <Badge size="md">Medium</Badge>
-          <Badge radius="md">Radius md</Badge>
-        </Stack>
-      </Stack>
+      </div>
     </Box>
   );
 }

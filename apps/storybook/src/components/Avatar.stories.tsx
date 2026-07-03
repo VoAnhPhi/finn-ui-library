@@ -38,9 +38,10 @@ type Story = StoryObj<typeof meta>;
 
 function AvatarDemo() {
   return (
-    <Box bg="background" color="foreground" p="xl" radius="xl" borderWidth="thin" borderColor="border">
-      <Card variant="elevated" p="xl">
-        <Stack gap="lg">
+    <Box bg="background" color="foreground" radius="xl">
+      <Card variant="elevated">
+        <div style={{ padding: "var(--finn-spacing-xl)" }}>
+          <Stack gap="lg">
           <Stack gap="xs">
             <Text variant="heading">Avatar</Text>
             <Text color="muted">User and workspace identity with image and fallback states.</Text>
@@ -71,7 +72,8 @@ function AvatarDemo() {
               <Badge tone="success">Online</Badge>
             </Stack>
           </Stack>
-        </Stack>
+          </Stack>
+        </div>
       </Card>
     </Box>
   );

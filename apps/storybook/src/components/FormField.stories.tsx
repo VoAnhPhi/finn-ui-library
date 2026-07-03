@@ -37,9 +37,10 @@ type Story = StoryObj<typeof meta>;
 
 function FormFieldDemo() {
   return (
-    <Box bg="background" color="foreground" p="xl" radius="xl" borderWidth="thin" borderColor="border">
-      <Card variant="elevated" p="xl" style={{ width: 420, maxWidth: "100%" }}>
-        <Stack gap="lg">
+    <Box bg="background" color="foreground" radius="xl">
+      <Card variant="elevated" style={{ width: 420, maxWidth: "100%" }}>
+        <div style={{ padding: "var(--finn-spacing-xl)" }}>
+          <Stack gap="lg">
           <Stack gap="xs">
             <Text variant="heading">FormField</Text>
             <Text color="muted">Label, helper, required, and error copy for form controls.</Text>
@@ -59,7 +60,8 @@ function FormFieldDemo() {
             <Button>Save</Button>
             <Button variant="outline" tone="neutral">Cancel</Button>
           </Stack>
-        </Stack>
+          </Stack>
+        </div>
       </Card>
     </Box>
   );

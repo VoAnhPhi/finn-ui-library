@@ -34,14 +34,15 @@ type Story = StoryObj<typeof meta>;
 
 function SelectionControlsDemo() {
   return (
-    <Box bg="background" color="foreground" p="xl" radius="xl" borderWidth="thin" borderColor="border">
-      <Card variant="elevated" p="xl" style={{ width: 440, maxWidth: "100%" }}>
-        <Stack gap="lg">
+    <Box bg="background" color="foreground" radius="xl">
+      <Card variant="elevated" style={{ width: 440, maxWidth: "100%" }}>
+        <div style={{ padding: "var(--finn-spacing-xl)" }}>
+          <Stack gap="lg">
           <Stack gap="xs">
             <Text variant="heading">Selection controls</Text>
             <Text color="muted">Checkbox and Switch cover binary settings with the shared Finn UI theme.</Text>
           </Stack>
-          <Stack gap="md">
+          <Stack gap="lg">
             <FormField id="selection-terms" label="Agreements" helperText="Checkbox uses the native checkbox input.">
               <Checkbox defaultChecked tone="success" label="Accept workspace terms" />
             </FormField>
@@ -60,7 +61,8 @@ function SelectionControlsDemo() {
             </Stack>
           </Stack>
           <Button>Save preferences</Button>
-        </Stack>
+          </Stack>
+        </div>
       </Card>
     </Box>
   );

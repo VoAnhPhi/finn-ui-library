@@ -39,9 +39,10 @@ function IconDot() {
 
 function FormSurfaceDemo() {
   return (
-    <Box bg="background" color="foreground" p="xl" radius="xl" borderWidth="thin" borderColor="border">
-      <Card variant="elevated" p="xl">
-        <Stack gap="lg">
+    <Box bg="background" color="foreground" radius="xl">
+      <Card variant="elevated">
+        <div style={{ padding: "var(--finn-spacing-xl)" }}>
+          <Stack gap="lg">
           <Stack gap="xs">
             <Text variant="heading">Account settings</Text>
             <Text color="muted">Input, Card, and Divider complete the first Finn UI component set.</Text>
@@ -69,7 +70,8 @@ function FormSurfaceDemo() {
             <Divider orientation="vertical" spacing="sm" />
             <Text variant="caption" color="muted">Theme-aware controls</Text>
           </Stack>
-        </Stack>
+          </Stack>
+        </div>
       </Card>
     </Box>
   );

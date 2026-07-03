@@ -31,40 +31,46 @@ type Story = StoryObj<typeof meta>;
 
 function PrimitiveDemo() {
   return (
-    <Box bg="background" color="foreground" p="xl" radius="xl" borderWidth="thin" borderColor="border">
-      <Stack gap="lg">
-        <Stack gap="xs">
-          <Text variant="caption" tone="muted">
-            Finn UI primitives
-          </Text>
-          <Text variant="heading">Box, Text, and Stack</Text>
-          <Text color="muted">
-            These primitives resolve spacing, surface, color, and typography values from the active theme.
-          </Text>
+    <Box bg="card" color="foreground" radius="xl" shadow="sm">
+      <div style={{ padding: "var(--finn-spacing-2xl)" }}>
+        <Stack gap="lg">
+          <Stack gap="xs">
+            <Text variant="caption" tone="muted">
+              Finn UI primitives
+            </Text>
+            <Text variant="heading">Box, Text, and Stack</Text>
+            <Text color="muted">
+              These primitives resolve spacing, surface, color, and typography values from the active theme.
+            </Text>
+          </Stack>
+          <Stack direction="row" gap="md" wrap="wrap">
+            <Box bg="background" radius="lg" shadow="sm">
+              <div style={{ padding: "var(--finn-spacing-lg)" }}>
+                <Stack gap="sm">
+                  <Text variant="label" tone="primary">
+                    Box
+                  </Text>
+                  <Text variant="caption" color="muted">
+                    Surface, spacing, radius, border, and shadow props.
+                  </Text>
+                </Stack>
+              </div>
+            </Box>
+            <Box bg="background" radius="lg" shadow="sm">
+              <div style={{ padding: "var(--finn-spacing-lg)" }}>
+                <Stack gap="sm">
+                  <Text variant="label" tone="success">
+                    Text
+                  </Text>
+                  <Text variant="caption" color="muted">
+                    Variants, tone, color, alignment, weight, and size.
+                  </Text>
+                </Stack>
+              </div>
+            </Box>
+          </Stack>
         </Stack>
-        <Stack direction="row" gap="md" wrap="wrap">
-          <Box bg="card" p="lg" radius="lg" borderWidth="thin" borderColor="border" shadow="sm">
-            <Stack gap="sm">
-              <Text variant="label" tone="primary">
-                Box
-              </Text>
-              <Text variant="caption" color="muted">
-                Surface, spacing, radius, border, and shadow props.
-              </Text>
-            </Stack>
-          </Box>
-          <Box bg="card" p="lg" radius="lg" borderWidth="thin" borderColor="border" shadow="sm">
-            <Stack gap="sm">
-              <Text variant="label" tone="success">
-                Text
-              </Text>
-              <Text variant="caption" color="muted">
-                Variants, tone, color, alignment, weight, and size.
-              </Text>
-            </Stack>
-          </Box>
-        </Stack>
-      </Stack>
+      </div>
     </Box>
   );
 }

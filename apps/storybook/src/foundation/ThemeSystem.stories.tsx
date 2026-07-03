@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { tokens } from "@finn-ui/tokens";
-import { createTheme, darkTheme, lightTheme } from "@finn-ui/theme";
+import { createTheme, createThemeCssVariables, darkTheme, lightTheme } from "@finn-ui/theme";
 import { UIProvider, useTheme } from "@finn-ui/react";
 
 const customTheme = createTheme({
@@ -84,6 +84,69 @@ function renderTheme(theme = lightTheme) {
   );
 }
 
+const variablePreviewNames = [
+  "--finn-color-background",
+  "--finn-color-card",
+  "--finn-color-primary",
+  "--finn-color-border",
+  "--finn-radius-lg",
+  "--finn-spacing-lg",
+  "--finn-component-card-shadow"
+];
+
+function CssVariablePreview() {
+  const variables = createThemeCssVariables(customTheme);
+
+  return (
+    <UIProvider theme={customTheme}>
+      <section
+        style={{
+          width: 520,
+          borderRadius: "var(--finn-radius-xl)",
+          background: "var(--finn-color-background)",
+          color: "var(--finn-color-foreground)",
+          fontFamily: "var(--finn-font-family-sans)",
+          padding: "var(--finn-spacing-xl)"
+        }}
+      >
+        <div
+          style={{
+            borderRadius: "var(--finn-component-card-radius)",
+            background: "var(--finn-color-card)",
+            boxShadow: "var(--finn-component-card-shadow)",
+            padding: "var(--finn-spacing-lg)"
+          }}
+        >
+          <p style={{ margin: 0, color: "var(--finn-color-muted)", fontSize: "var(--finn-font-size-sm)" }}>
+            CSS variable runtime
+          </p>
+          <h2 style={{ margin: "8px 0 12px", fontSize: "var(--finn-font-size-xl)" }}>
+            Theme object values are available as --finn-* variables.
+          </h2>
+          <div style={{ display: "grid", gap: "var(--finn-spacing-sm)" }}>
+            {variablePreviewNames.map((name) => (
+              <code
+                key={name}
+                style={{
+                  borderRadius: "var(--finn-radius-md)",
+                  background: "color-mix(in srgb, var(--finn-color-primary) 10%, transparent)",
+                  color: "var(--finn-color-primary)",
+                  display: "block",
+                  fontFamily: "var(--finn-font-family-mono)",
+                  fontSize: "var(--finn-font-size-sm)",
+                  padding: "var(--finn-spacing-sm) var(--finn-spacing-md)"
+                }}
+              >
+                {name}: {variables[name]}
+              </code>
+            ))}
+          </div>
+        </div>
+      </section>
+    </UIProvider>
+  );
+}
+
 export const LightTheme: Story = {
   render: () => renderTheme(lightTheme)
 };
@@ -94,4 +157,8 @@ export const DarkTheme: Story = {
 
 export const CustomTheme: Story = {
   render: () => renderTheme(customTheme)
+};
+
+export const CssVariableRuntime: Story = {
+  render: () => <CssVariablePreview />
 };

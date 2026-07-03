@@ -38,37 +38,39 @@ function IconDot() {
 
 function ButtonGrid() {
   return (
-    <Box bg="background" color="foreground" p="xl" radius="xl" borderWidth="thin" borderColor="border">
-      <Stack gap="lg">
-        <Stack gap="xs">
-          <Text variant="heading">Button</Text>
-          <Text color="muted">Variants, tones, sizes, icons, loading, disabled, and full-width states.</Text>
+    <Box bg="card" color="foreground" data-testid="button-story-surface" radius="xl" shadow="sm">
+      <div style={{ padding: "var(--finn-spacing-2xl)" }}>
+        <Stack gap="lg">
+          <Stack gap="xs">
+            <Text variant="heading">Button</Text>
+            <Text color="muted">Variants, tones, sizes, icons, loading, disabled, and full-width states.</Text>
+          </Stack>
+          <Stack direction="row" gap="md" wrap="wrap">
+            <Button variant="solid" tone="primary">Solid</Button>
+            <Button variant="outline" tone="primary">Outline</Button>
+            <Button variant="ghost" tone="primary">Ghost</Button>
+            <Button variant="soft" tone="primary">Soft</Button>
+            <Button variant="link" tone="primary">Link</Button>
+          </Stack>
+          <Stack direction="row" gap="md" wrap="wrap">
+            <Button tone="neutral">Neutral</Button>
+            <Button tone="danger">Danger</Button>
+            <Button tone="success">Success</Button>
+            <Button tone="warning">Warning</Button>
+          </Stack>
+          <Stack direction="row" gap="md" align="center" wrap="wrap">
+            <Button size="sm">Small</Button>
+            <Button size="md">Medium</Button>
+            <Button size="lg">Large</Button>
+            <Button leftIcon={<IconDot />} rightIcon={<IconDot />}>With icons</Button>
+          </Stack>
+          <Stack gap="md">
+            <Button loading>Loading</Button>
+            <Button disabled>Disabled</Button>
+            <Button fullWidth>Full width</Button>
+          </Stack>
         </Stack>
-        <Stack direction="row" gap="md" wrap="wrap">
-          <Button variant="solid" tone="primary">Solid</Button>
-          <Button variant="outline" tone="primary">Outline</Button>
-          <Button variant="ghost" tone="primary">Ghost</Button>
-          <Button variant="soft" tone="primary">Soft</Button>
-          <Button variant="link" tone="primary">Link</Button>
-        </Stack>
-        <Stack direction="row" gap="md" wrap="wrap">
-          <Button tone="neutral">Neutral</Button>
-          <Button tone="danger">Danger</Button>
-          <Button tone="success">Success</Button>
-          <Button tone="warning">Warning</Button>
-        </Stack>
-        <Stack direction="row" gap="md" align="center" wrap="wrap">
-          <Button size="sm">Small</Button>
-          <Button size="md">Medium</Button>
-          <Button size="lg">Large</Button>
-          <Button leftIcon={<IconDot />} rightIcon={<IconDot />}>With icons</Button>
-        </Stack>
-        <Stack gap="md">
-          <Button loading>Loading</Button>
-          <Button disabled>Disabled</Button>
-          <Button fullWidth>Full width</Button>
-        </Stack>
-      </Stack>
+      </div>
     </Box>
   );
 }

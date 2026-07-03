@@ -31,9 +31,10 @@ type Story = StoryObj<typeof meta>;
 
 function SkeletonDemo() {
   return (
-    <Box bg="background" color="foreground" p="xl" radius="xl" borderWidth="thin" borderColor="border">
-      <Card variant="elevated" p="xl" style={{ width: 420, maxWidth: "100%" }}>
-        <Stack gap="lg">
+    <Box bg="background" color="foreground" radius="xl">
+      <Card variant="elevated" style={{ width: 420, maxWidth: "100%" }}>
+        <div style={{ padding: "var(--finn-spacing-xl)" }}>
+          <Stack gap="lg">
           <Stack gap="xs">
             <Text variant="heading">Skeleton</Text>
             <Text color="muted">Loading placeholders for cards, lists, and profile surfaces.</Text>
@@ -57,7 +58,8 @@ function SkeletonDemo() {
             <Avatar fallback="FU" tone="primary" />
             <Skeleton animated={false} width={120} height={16} />
           </Stack>
-        </Stack>
+          </Stack>
+        </div>
       </Card>
     </Box>
   );
